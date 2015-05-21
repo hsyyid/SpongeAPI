@@ -24,22 +24,47 @@
  */
 package org.spongepowered.api.world.gen.type;
 
+import org.spongepowered.api.CatalogType;
+import org.spongepowered.api.util.annotation.CatalogedBy;
+import org.spongepowered.api.world.gen.PopulatorObject;
+
 /**
- * An enumeration of known {@link BiomeTreeType}s.
+ * Represents the various types of mushrooms which may be spawned into the
+ * world.
  */
-public final class BiomeTreeTypes {
+@CatalogedBy(MushroomTypes.class)
+public interface MushroomType extends CatalogType {
 
-    public static final BiomeTreeType OAK = null;
-    public static final BiomeTreeType BIRCH = null;
-    public static final BiomeTreeType TALL_TAIGA = null;
-    public static final BiomeTreeType POINTY_TAIGA = null;
-    public static final BiomeTreeType JUNGLE = null;
-    public static final BiomeTreeType JUNGLE_BUSH = null;
-    public static final BiomeTreeType SAVANNA = null;
-    public static final BiomeTreeType CANOPY = null;
-    public static final BiomeTreeType SWAMP = null;
+    /**
+     * Gets the {@link PopulatorObject} which is used to generate this mushroom
+     * into the world.
+     * 
+     * @return The populator object
+     */
+    PopulatorObject getPopulatorObject();
 
-    private BiomeTreeTypes() {
-    }
+    /**
+     * Sets the {@link PopulatorObject} which is used to generate this mushroom
+     * into the world.
+     * 
+     * @param object The new populator object
+     */
+    void setPopulatorObject(PopulatorObject object);
+
+    /**
+     * Gets the {@link PopulatorObject} which is used to generate the larger
+     * variant of this mushroom into the world.
+     * 
+     * @return The large populator object
+     */
+    PopulatorObject getLargePopulatorObject();
+
+    /**
+     * Sets the {@link PopulatorObject} which is used to generate the larger
+     * variant of this mushroom into the world.
+     * 
+     * @param object The new large populator object
+     */
+    void setLargePopulatorObject(PopulatorObject object);
 
 }

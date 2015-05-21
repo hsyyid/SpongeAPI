@@ -24,69 +24,64 @@
  */
 package org.spongepowered.api.world.gen.populator;
 
-import org.spongepowered.api.block.BlockType;
+import org.spongepowered.api.util.VariableAmount;
 import org.spongepowered.api.world.gen.Populator;
 
 /**
- * Represents a populator which creates fires on the surfaces of targeted
- * blocks. In vanilla this is used to create random fires in the Nether.
+ * Represents a populator which scatters melons randomly around the chunk.
  */
-public interface RandomFire extends Populator {
+public interface Melon extends Populator {
 
     /**
-     * Gets the number of fires to attempt to spawn per chunk, must be greater
+     * Gets the number of melons to attempt to spawn per chunk, must be greater
      * than zero.
      * 
      * @return The number to spawn
      */
-    int getFirePerChunk();
+    VariableAmount getMelonsPerChunk();
 
     /**
-     * Sets the number of fires to attempt to spawn per chunk, must be greater
-     * than zero.
+     * Sets the number of melons to attempt to spawn per chunk, must be greater
+     * than zero. The default value is 64.
      * 
-     * @param count The new number to spawn
+     * @param count The new amount to spawn
      */
-    void setFirePerChunk(int count);
+    void setMelonsPerChunk(VariableAmount count);
 
     /**
-     * Gets the block type targeted by this populator, fires will only be
-     * started when on top of this block type.
+     * Sets the number of melons to attempt to spawn per chunk, must be greater
+     * than zero. The default value is 64.
      * 
-     * @return The targeted block
+     * @param count The new amount to spawn
      */
-    BlockType getPlacementTarget();
+    default void setMelonsPerChunk(int count) {
+        setMelonsPerChunk(VariableAmount.fixed(count));
+    }
 
     /**
-     * Sets the block type targeted by this populator, fires will only be
-     * started when on top of this block type.
-     * 
-     * @param target The new targeted block
-     */
-    void setPlacementTarget(BlockType target);
-
-    /**
-     * A builder for constructing {@link RandomFire} populators.
+     * A builder for constructing {@link Melon} populators.
      */
     interface Builder {
 
         /**
-         * Sets the number of fires to attempt to spawn per chunk, must be
-         * greater than zero.
+         * Sets the number of melons to attempt to spawn per chunk. The default
+         * value is 64.
          * 
-         * @param count The new number to spawn
+         * @param count The new amount to spawn
          * @return This builder, for chaining
          */
-        Builder perChunk(int count);
+        Builder perChunk(VariableAmount count);
 
         /**
-         * Sets the block type targeted by this populator, fires will only be
-         * started when on top of this block type.
+         * Sets the number of melons to attempt to spawn per chunk. The default
+         * value is 64.
          * 
-         * @param target The new targeted block
+         * @param count The new amount to spawn
          * @return This builder, for chaining
          */
-        Builder placementTarget(BlockType target);
+        default Builder perChunk(int count) {
+            return perChunk(VariableAmount.fixed(count));
+        }
 
         /**
          * Resets this builder to the default values.
@@ -96,14 +91,14 @@ public interface RandomFire extends Populator {
         Builder reset();
 
         /**
-         * Builds a new instance of a {@link RandomFire} populator with the
-         * settings set within the builder.
+         * Builds a new instance of a {@link Melon} populator with the settings
+         * set within the builder.
          * 
          * @return A new instance of the populator
          * @throws IllegalStateException If there are any settings left unset
-         *             which do not have default values
+         *         which do not have default values
          */
-        RandomFire build() throws IllegalStateException;
+        Melon build() throws IllegalStateException;
 
     }
 

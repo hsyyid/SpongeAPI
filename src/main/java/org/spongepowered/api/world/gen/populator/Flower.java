@@ -24,71 +24,86 @@
  */
 package org.spongepowered.api.world.gen.populator;
 
+import org.spongepowered.api.data.type.PlantType;
+import org.spongepowered.api.util.VariableAmount;
+import org.spongepowered.api.util.weightedold.WeightedCollection;
+import org.spongepowered.api.util.weightedold.WeightedObject;
+import org.spongepowered.api.world.gen.Populator;
+
 import java.util.Collection;
 
-import org.spongepowered.api.util.VariableAmount;
-import org.spongepowered.api.world.gen.Populator;
-import org.spongepowered.api.world.gen.type.BiomeTreeType;
-
-import java.util.Optional;
-
 /**
- * A populator which will place several trees into a chunk in order to create a
- * forest.
+ * Represents a populator which scatters flowers randomly around a chunk.
  */
-public interface Forest extends Populator {
+public interface Flower extends Populator {
 
     /**
-     * Gets the number of trees to attempt to spawn per chunk, must be greater
+     * Gets the number of flowers to attempt to spawn per chunk, must be greater
      * than zero.
-     *
+     * 
      * @return The number to spawn
      */
-    VariableAmount getTreesPerChunk();
+    VariableAmount getFlowersPerChunk();
 
     /**
-     * Sets the number of trees to attempt to spawn per chunk, must be greater
+     * Sets the number of flowers to attempt to spawn per chunk, must be greater
      * than zero.
-     *
-     * @param count The new amount to spawn
-     */
-    void setTreesPerChunk(VariableAmount count);
-
-    /**
-     * Sets the number of trees to attempt to spawn per chunk, must be greater
-     * than zero.
+     * 
+     * <p><strong>Note:</strong> This number is not a definite number and the
+     * final count of flowers which are successfully spawned by the populator
+     * will almost always be lower.</p>
      * 
      * @param count The new amount to spawn
      */
-    default void setTreesPerChunk(int count) {
-        setTreesPerChunk(VariableAmount.fixed(count));
+    void setFlowersPerChunk(VariableAmount count);
+
+    /**
+     * Sets the number of flowers to attempt to spawn per chunk, must be greater
+     * than zero.
+     * 
+     * <p><strong>Note:</strong> This number is not a definite number and the
+     * final count of flowers which are successfully spawned by the populator
+     * will almost always be lower.</p>
+     * 
+     * @param count The new amount to spawn
+     */
+    default void setFlowersPerChunk(int count) {
+        setFlowersPerChunk(VariableAmount.fixed(count));
     }
 
     /**
-     * Gets the a mutable weighted collection of {@link BiomeTreeType}s to
+     * Gets a mutable weighted collection of plant type for this populator to
      * spawn.
      * 
-     * @return The type to spawn
+     * @return The plant types
      */
-    WeightedCollection<WeightedBiomeTreeType> getTypes();
+    WeightedCollection<WeightedObject<PlantType>> getFlowerTypes();
 
     /**
-     * A builder for constructing {@link Forest} populators.
+     * A builder for constructing {@link Flower} populators.
      */
     interface Builder {
 
         /**
-         * Sets the number of trees to attempt to spawn per chunk, must be
+         * Sets the number of flowers to attempt to spawn per chunk, must be
          * greater than zero.
-         *
+         * 
+         * <p><strong>Note:</strong> This number is not a definite number and
+         * the final count of flowers which are successfully spawned by the
+         * populator will almost always be lower.</p>
+         * 
          * @param count The new amount to spawn
          * @return This builder, for chaining
          */
         Builder perChunk(VariableAmount count);
 
         /**
-         * Sets the number of trees to attempt to spawn per chunk, must be
+         * Sets the number of flowers to attempt to spawn per chunk, must be
          * greater than zero.
+         * 
+         * <p><strong>Note:</strong> This number is not a definite number and
+         * the final count of flowers which are successfully spawned by the
+         * populator will almost always be lower.</p>
          * 
          * @param count The new amount to spawn
          * @return This builder, for chaining
@@ -98,55 +113,46 @@ public interface Forest extends Populator {
         }
 
         /**
-         * Sets the {@link BiomeTreeType}s to spawn.
+         * Sets the plant types for this populator to spawn.
          * 
-         * @param types The new types to spawn
+         * @param types The plant types to spawn
          * @return This builder, for chaining
          */
-        Builder types(WeightedBiomeTreeType... types);
+        Builder types(WeightedObject<PlantType>... types);
 
         /**
-         * Sets the {@link BiomeTreeType}s to spawn.
+         * Sets the plant types for this populator to spawn.
          * 
-         * @param types The new types to spawn
+         * @param types The plant types to spawn
          * @return This builder, for chaining
          */
-        Builder types(Collection<WeightedBiomeTreeType> types);
+        Builder types(Collection<WeightedObject<PlantType>> types);
 
         /**
-         * Sets the {@link BiomeTreeType} to the list of weighted types.
+         * Adds the plant type to the list of types to spawn with the given weight.
          * 
-         * @param type The new type to add
+         * @param types The plant type to spawn
          * @param weight The weight of the type
-         * @param large If the large variant should be used
          * @return This builder, for chaining
          */
-        Builder type(BiomeTreeType type, int weight, boolean large);
-
-        /**
-         * Sets the {@link WeightedBiomeTreeType} to the list of weighted types.
-         * 
-         * @param type The new type to add
-         * @return This builder, for chaining
-         */
-        Builder type(WeightedBiomeTreeType type);
+        Builder type(PlantType type, int weight);
 
         /**
          * Resets this builder to the default values.
-         *
+         * 
          * @return This builder, for chaining
          */
         Builder reset();
 
         /**
-         * Builds a new instance of a {@link Forest} populator with the settings
-         * set within the builder.
-         *
+         * Builds a new instance of a {@link Flower} populator with the
+         * settings set within the builder.
+         * 
          * @return A new instance of the populator
          * @throws IllegalStateException If there are any settings left unset
          *         which do not have default values
          */
-        Forest build() throws IllegalStateException;
+        Flower build() throws IllegalStateException;
 
     }
 

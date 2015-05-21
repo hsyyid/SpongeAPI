@@ -22,37 +22,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.world.gen.populator;
-
-import org.spongepowered.api.world.gen.Populator;
+package org.spongepowered.api.world.gen.type;
 
 /**
- * Represents a populator which places large amounts of vines on surfaces within
- * the chunk.
+ * An enumeration of known {@link MushroomType}s.
  */
-public interface Vines extends Populator {
+public final class MushroomTypes {
 
-    /**
-     * A builder for constructing {@link Vines} populators.
-     */
-    interface Builder {
+    public static final MushroomType BROWN = null;
+    public static final MushroomType RED = null;
 
-        /**
-         * Resets this builder to the default values.
-         * 
-         * @return This builder, for chaining
-         */
-        Builder reset();
-
-        /**
-         * Builds a new instance of a {@link Vines} populator with the settings
-         * set within the builder.
-         * 
-         * @return A new instance of the populator
-         * @throws IllegalStateException If there are any settings left unset
-         *             which do not have default values
-         */
-        Vines build() throws IllegalStateException;
-
+    private MushroomTypes() {
     }
+
 }

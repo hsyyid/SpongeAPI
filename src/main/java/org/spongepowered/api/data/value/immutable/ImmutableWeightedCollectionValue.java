@@ -25,8 +25,8 @@
 package org.spongepowered.api.data.value.immutable;
 
 import org.spongepowered.api.data.value.mutable.WeightedCollectionValue;
-import org.spongepowered.api.util.weighted.WeightedCollection;
-import org.spongepowered.api.util.weighted.WeightedObject;
+import org.spongepowered.api.util.weightedold.WeightedCollection;
+import org.spongepowered.api.util.weightedold.WeightedObject;
 
 import java.util.Random;
 
