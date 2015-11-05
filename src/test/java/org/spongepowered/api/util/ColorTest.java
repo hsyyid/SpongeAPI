@@ -22,36 +22,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.data.manipulator.immutable.tileentity;
+package org.spongepowered.api.util;
 
-import org.spongepowered.api.block.tileentity.Banner;
-import org.spongepowered.api.data.manipulator.ImmutableDataManipulator;
-import org.spongepowered.api.data.manipulator.mutable.tileentity.BannerData;
-import org.spongepowered.api.data.meta.PatternLayer;
-import org.spongepowered.api.data.type.DyeColor;
-import org.spongepowered.api.data.value.immutable.ImmutablePatternListValue;
-import org.spongepowered.api.data.value.immutable.ImmutableValue;
+import org.junit.Test;
 
-/**
- * An {@link ImmutableDataManipulator} handling the various information for a
- * {@link Banner} including the {@link PatternLayer}s that customize the
- * {@link Banner}.
- */
-public interface ImmutableBannerData extends ImmutableDataManipulator<ImmutableBannerData, BannerData> {
+public class ColorTest {
 
-    /**
-     * Gets the {@link ImmutableValue} for the base {@link DyeColor}.
-     *
-     * @return The immutable value for the base color
-     */
-    ImmutableValue<DyeColor> baseColor();
+    @Test
+    public void testColorAwtTranslation() {
+        final Color color = Color.ofJavaColor(java.awt.Color.BLUE);
+        final java.awt.Color javaTranslated = color.asJavaColor();
+        assert java.awt.Color.BLUE.equals(javaTranslated);
+    }
 
-    /**
-     * Gets the {@link ImmutablePatternListValue} of all patterns for the
-     * {@link Banner}.
-     *
-     * @return The immutable pattern list
-     */
-    ImmutablePatternListValue patterns();
+    @Test
+    public void testAverage() {
+        final Color blue = Color.ofJavaColor(java.awt.Color.BLUE);
+        final Color green = Color.ofJavaColor(java.awt.Color.GREEN);
+        final Color average = Color.mixColors(blue, green);
+        final java.awt.Color javaColor = average.asJavaColor();
+        int javaRed = javaColor.getRed();
+        int javaGreen = javaColor.getGreen();
+        int javaBlue = javaColor.getBlue();
+    }
+
+    @Test
+    public void testUnknown() {
+        final java.awt.Color unknown = Color.UNKNOWN.asJavaColor();
+        int javaRed = unknown.getRed();
+        int javaGreen = unknown.getGreen();
+        int javaBlue = unknown.getBlue();
+    }
 
 }
