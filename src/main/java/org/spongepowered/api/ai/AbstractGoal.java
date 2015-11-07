@@ -22,11 +22,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.entity.living;
+package org.spongepowered.api.ai;
 
-/**
- * Represents an aquatic living entity that may normally spawn in water.
- */
-public interface Aquatic extends Creature {
+import org.spongepowered.api.entity.living.Agent;
 
+public abstract class AbstractGoal implements Goal {
+    private int mutex;
+    private boolean interruptible;
+
+    public AbstractGoal(int mutex, boolean interruptible) {
+        this.mutex = mutex;
+        this.interruptible = interruptible;
+    }
+
+    @Override
+    public int getMutex() {
+        return mutex;
+    }
+
+    @Override
+    public void setMutex(int mutex) {
+        this.mutex = mutex;
+    }
+
+    @Override
+    public boolean isInterruptible() {
+        return interruptible;
+    }
+
+    public abstract void assignedTo(Agent owner);
+
+    public abstract boolean shouldUpdate();
+
+    public abstract boolean continueUpdating();
+
+    public abstract void start();
+
+    public abstract void update();
+
+    public abstract void reset();
 }

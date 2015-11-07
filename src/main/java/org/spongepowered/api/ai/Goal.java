@@ -22,11 +22,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.entity.living;
+package org.spongepowered.api.ai;
 
-/**
- * Represents an aquatic living entity that may normally spawn in water.
- */
-public interface Aquatic extends Creature {
+import org.spongepowered.api.entity.living.Agent;
 
+public interface Goal {
+
+    /**
+     * Gets the mutex that determines if this goal can run, concurrently, with another goal at the same time.
+     *
+     * How this is handled is up to the implementation but for Minecraft it performs a bitwise AND between
+     * the two Goal objects such that <code>goalA.getMutex() & goalB.getMutex()</code> equaling '0' warrants
+     * the goals running co-currently. If the bitwise operation does not return 0, the goal with the
+     * "lowest" priority given in {@link Agent#addGoal(int, Goal)} will be ran first.
+     *
+     * @return The mutex
+     */
+    int getMutex();
+
+    /**
+     * Sets the mutex. See {@link Goal#getMutex()}.
+     *
+     * @param mutex The new mutex
+     */
+    void setMutex(int mutex);
+
+    /**
+     * Returns if this goal is interruptible. Is true for all Minecraft standard goals.
+     *
+     * @return True if interruptible, false if not
+     */
+    boolean isInterruptible();
 }

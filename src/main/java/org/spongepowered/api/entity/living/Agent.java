@@ -24,7 +24,10 @@
  */
 package org.spongepowered.api.entity.living;
 
+import org.spongepowered.api.ai.Goal;
 import org.spongepowered.api.data.manipulator.mutable.entity.AgentData;
+
+import java.util.Set;
 
 /**
  * An Agent represents a {@link Living} that has AI. In the future Sponge will
@@ -41,4 +44,14 @@ public interface Agent extends Living {
         return get(AgentData.class).get();
     }
 
+    /**
+     * Adds a {@link Goal} for this agent with a provided priority.
+     *
+     * @param priority The priority
+     * @param goal The goal
+     * @return This agent, for chaining
+     */
+    Agent addGoal(int priority, Goal goal);
+
+    <T extends Goal> Set<T> getGoals(Class<T> clazz);
 }
