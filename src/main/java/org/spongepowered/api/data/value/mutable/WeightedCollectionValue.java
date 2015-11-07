@@ -28,13 +28,14 @@ import org.spongepowered.api.data.value.immutable.ImmutableWeightedCollectionVal
 import org.spongepowered.api.util.weighted.WeightedTable;
 import org.spongepowered.api.util.weighted.WeightedTableEntry;
 
+import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nullable;
 
 /**
  * Represents a particular type of {@link CollectionValue} that is backed by
- * a {@link WeightedCollection}.
+ * a {@link WeightedTable}.
  *
  * @param <E> The type of weighted object
  */
@@ -49,6 +50,6 @@ public interface WeightedCollectionValue<E> extends CollectionValue<WeightedTabl
      * @return The selected value
      */
     @Nullable
-    E get(Random random);
+    List<E> get(Random random);
 
 }
