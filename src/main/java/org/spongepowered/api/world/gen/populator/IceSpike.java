@@ -24,8 +24,6 @@
  */
 package org.spongepowered.api.world.gen.populator;
 
-import javax.swing.JEditorPane;
-
 import org.spongepowered.api.util.VariableAmount;
 import org.spongepowered.api.world.gen.Populator;
 

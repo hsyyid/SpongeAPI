@@ -24,13 +24,13 @@
  */
 package org.spongepowered.api.data.value.mutable;
 
-import java.util.Random;
-
-import javax.annotation.Nullable;
-
 import org.spongepowered.api.data.value.immutable.ImmutableWeightedCollectionValue;
 import org.spongepowered.api.util.weighted.WeightedTable;
 import org.spongepowered.api.util.weighted.WeightedTableEntry;
+
+import java.util.Random;
+
+import javax.annotation.Nullable;
 
 /**
  * Represents a particular type of {@link CollectionValue} that is backed by

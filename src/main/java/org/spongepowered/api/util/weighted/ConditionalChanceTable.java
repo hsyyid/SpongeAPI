@@ -24,11 +24,11 @@
  */
 package org.spongepowered.api.util.weighted;
 
+import com.google.common.collect.Lists;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-
-import com.google.common.collect.Lists;
 
 public class ConditionalChanceTable<T, C> extends ConditionalRandomObjectTable<T, C> {
 

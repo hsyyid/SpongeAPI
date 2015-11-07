@@ -24,13 +24,13 @@
  */
 package org.spongepowered.api.util.weighted;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 public abstract class RandomObjectTable<T> implements Collection<WeightedTableEntry<T>> {
 
