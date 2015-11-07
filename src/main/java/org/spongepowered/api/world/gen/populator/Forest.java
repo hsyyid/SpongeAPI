@@ -24,13 +24,11 @@
  */
 package org.spongepowered.api.world.gen.populator;
 
-import java.util.Collection;
-
 import org.spongepowered.api.util.VariableAmount;
+import org.spongepowered.api.util.weighted.WeightedTable;
 import org.spongepowered.api.world.gen.Populator;
+import org.spongepowered.api.world.gen.PopulatorObject;
 import org.spongepowered.api.world.gen.type.BiomeTreeType;
-
-import java.util.Optional;
 
 /**
  * A populator which will place several trees into a chunk in order to create a
@@ -70,7 +68,7 @@ public interface Forest extends Populator {
      * 
      * @return The type to spawn
      */
-    WeightedCollection<WeightedBiomeTreeType> getTypes();
+    WeightedTable<PopulatorObject> getTypes();
 
     /**
      * A builder for constructing {@link Forest} populators.
@@ -103,33 +101,16 @@ public interface Forest extends Populator {
          * @param types The new types to spawn
          * @return This builder, for chaining
          */
-        Builder types(WeightedBiomeTreeType... types);
-
-        /**
-         * Sets the {@link BiomeTreeType}s to spawn.
-         * 
-         * @param types The new types to spawn
-         * @return This builder, for chaining
-         */
-        Builder types(Collection<WeightedBiomeTreeType> types);
+        Builder types(WeightedTable<PopulatorObject> types);
 
         /**
          * Sets the {@link BiomeTreeType} to the list of weighted types.
          * 
          * @param type The new type to add
          * @param weight The weight of the type
-         * @param large If the large variant should be used
          * @return This builder, for chaining
          */
-        Builder type(BiomeTreeType type, int weight, boolean large);
-
-        /**
-         * Sets the {@link WeightedBiomeTreeType} to the list of weighted types.
-         * 
-         * @param type The new type to add
-         * @return This builder, for chaining
-         */
-        Builder type(WeightedBiomeTreeType type);
+        Builder type(PopulatorObject type, double weight);
 
         /**
          * Resets this builder to the default values.

@@ -26,7 +26,6 @@ package org.spongepowered.api.world.gen.populator;
 
 import org.spongepowered.api.util.VariableAmount;
 import org.spongepowered.api.world.gen.Populator;
-import org.spongepowered.api.world.gen.populator.Melon.Builder;
 
 /**
  * Represents a populator which places large amounts of vines on surfaces within

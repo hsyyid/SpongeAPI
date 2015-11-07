@@ -24,32 +24,16 @@
  */
 package org.spongepowered.api.util.weighted;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+public abstract class ConditionalWeightedTableEntry<T> {
+    private final double weight;
 
-import com.google.common.collect.Lists;
-
-public class LootTable<T> {
-
-    private List<RandomObjectTable<T>> pools = new ArrayList<>();
-
-    public LootTable() {
-
+    public ConditionalWeightedTableEntry(double weight) {
+        this.weight = weight;
     }
 
-    public void addPool(RandomObjectTable<T> pool) {
-        this.pools.add(pool);
+    public double getWeight() {
+        return this.weight;
     }
-
-    public List<T> get(Random rand) {
-        List<T> results = Lists.newArrayList();
-        for (RandomObjectTable<T> pool : this.pools) {
-            results.addAll(pool.get(rand));
-        }
-        return results;
-    }
-
-    // TODO Deamon add equals and hashcode
-
+    
+    //TODO Deamon add equals and hashcode
 }

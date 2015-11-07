@@ -24,19 +24,20 @@
  */
 package org.spongepowered.api.util.weighted;
 
-import com.google.common.base.Objects;
 import org.spongepowered.api.data.DataContainer;
 import org.spongepowered.api.data.DataSerializable;
 import org.spongepowered.api.data.MemoryDataContainer;
 import org.spongepowered.api.data.Queries;
 
-public class WeightedSerializableObject<T extends DataSerializable> extends WeightedObject<T> implements DataSerializable {
+import com.google.common.base.Objects;
+
+public class WeightedSerializableObject<T extends DataSerializable> extends WeightedObject<T>implements DataSerializable {
 
     /**
      * Creates a new {@link WeightedSerializableObject} with the provided
      * {@link DataSerializable}.
      *
-     * @param object The serializable
+     * @param object The serializable object
      * @param weight The weight
      */
     public WeightedSerializableObject(T object, int weight) {
@@ -46,9 +47,9 @@ public class WeightedSerializableObject<T extends DataSerializable> extends Weig
     @Override
     public String toString() {
         return Objects.toStringHelper(this)
-            .add("object", this.object)
-            .add("weight", this.weight)
-            .toString();
+                .add("object", get())
+                .add("weight", getWeight())
+                .toString();
     }
 
     @SuppressWarnings("rawtypes")
@@ -61,13 +62,13 @@ public class WeightedSerializableObject<T extends DataSerializable> extends Weig
             return false;
         }
         WeightedSerializableObject object = (WeightedSerializableObject) obj;
-        return this.object.equals(object.object) && this.weight == object.weight;
+        return get().equals(object.get()) && getWeight() == object.getWeight();
     }
 
     @Override
     public DataContainer toContainer() {
         return new MemoryDataContainer()
-            .set(Queries.WEIGHTED_SERIALIZABLE, this.get())
-            .set(Queries.WEIGHTED_SERIALIZABLE_WEIGHT, this.weight);
+                .set(Queries.WEIGHTED_SERIALIZABLE, get())
+                .set(Queries.WEIGHTED_SERIALIZABLE_WEIGHT, getWeight());
     }
 }

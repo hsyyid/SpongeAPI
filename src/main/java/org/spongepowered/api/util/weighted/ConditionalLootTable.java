@@ -30,26 +30,26 @@ import java.util.Random;
 
 import com.google.common.collect.Lists;
 
-public class LootTable<T> {
+public class ConditionalLootTable<T, C> {
 
-    private List<RandomObjectTable<T>> pools = new ArrayList<>();
+    private List<ConditionalRandomObjectTable<T, C>> pools = new ArrayList<>();
 
-    public LootTable() {
+    public ConditionalLootTable() {
 
     }
 
-    public void addPool(RandomObjectTable<T> pool) {
+    public void addPool(ConditionalRandomObjectTable<T, C> pool) {
         this.pools.add(pool);
     }
 
-    public List<T> get(Random rand) {
+    public List<T> get(Random rand, C object) {
         List<T> results = Lists.newArrayList();
-        for (RandomObjectTable<T> pool : this.pools) {
-            results.addAll(pool.get(rand));
+        for (ConditionalRandomObjectTable<T, C> pool : this.pools) {
+            results.addAll(pool.get(rand, object));
         }
         return results;
     }
-
-    // TODO Deamon add equals and hashcode
+    
+    //TODO Deamon add equals and hashcode
 
 }

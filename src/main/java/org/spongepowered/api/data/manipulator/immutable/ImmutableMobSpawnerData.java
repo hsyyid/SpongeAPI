@@ -24,13 +24,19 @@
  */
 package org.spongepowered.api.data.manipulator.immutable;
 
+import java.util.Collection;
+import java.util.Random;
+import java.util.function.Function;
+
+import javax.annotation.Nullable;
+
 import org.spongepowered.api.block.tileentity.MobSpawner;
 import org.spongepowered.api.data.manipulator.DataManipulator;
 import org.spongepowered.api.data.manipulator.ImmutableDataManipulator;
 import org.spongepowered.api.data.manipulator.mutable.MobSpawnerData;
 import org.spongepowered.api.data.value.immutable.ImmutableBoundedValue;
 import org.spongepowered.api.data.value.immutable.ImmutableValue;
-import org.spongepowered.api.data.value.immutable.ImmutableWeightedEntityCollectionValue;
+import org.spongepowered.api.data.value.immutable.ImmutableWeightedCollectionValue;
 import org.spongepowered.api.data.value.mutable.Value;
 import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.entity.EntitySnapshot;
@@ -38,12 +44,6 @@ import org.spongepowered.api.entity.EntityType;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.entity.vehicle.minecart.MinecartMobSpawner;
 import org.spongepowered.api.util.weighted.WeightedSerializableObject;
-
-import java.util.Collection;
-import java.util.Random;
-import java.util.function.Function;
-
-import javax.annotation.Nullable;
 
 /**
  * An {@link ImmutableDataManipulator} for all information surrounding a
@@ -134,7 +134,7 @@ public interface ImmutableMobSpawnerData extends ImmutableDataManipulator<Immuta
      *
      * @return The immutable weighted entity collection value of entities
      */
-    ImmutableWeightedEntityCollectionValue possibleEntitiesToSpawn();
+    ImmutableWeightedCollectionValue<EntitySnapshot> possibleEntitiesToSpawn();
 
     /**
      * Represents a custom {@link Value} dealing with the next

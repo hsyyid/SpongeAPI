@@ -26,11 +26,8 @@ package org.spongepowered.api.world.gen.populator;
 
 import org.spongepowered.api.data.type.DoublePlantType;
 import org.spongepowered.api.util.VariableAmount;
-import org.spongepowered.api.util.weightedold.WeightedCollection;
-import org.spongepowered.api.util.weightedold.WeightedObject;
+import org.spongepowered.api.util.weighted.WeightedTable;
 import org.spongepowered.api.world.gen.Populator;
-
-import java.util.Collection;
 
 /**
  * Represents a populator which spawns in an assortment of two block tall
@@ -45,7 +42,7 @@ public interface DoublePlant extends Populator {
      * 
      * @return The possible types to be spawned
      */
-    WeightedCollection<WeightedObject<DoublePlantType>> getPossibleTypes();
+    WeightedTable<DoublePlantType> getPossibleTypes();
 
     /**
      * Gets the number of plants to create per chunk.
@@ -89,15 +86,7 @@ public interface DoublePlant extends Populator {
          * @param types Possible types
          * @return This builder, for chaining
          */
-        Builder types(WeightedObject<DoublePlantType>... types);
-
-        /**
-         * Sets which plant types may be spawned in by this populator.
-         * 
-         * @param types Possible types
-         * @return This builder, for chaining
-         */
-        Builder types(Collection<WeightedObject<DoublePlantType>> types);
+        Builder types(WeightedTable<DoublePlantType> types);
 
         /**
          * Adds a plant type to the list that may be spawned in by this populator.
@@ -106,7 +95,7 @@ public interface DoublePlant extends Populator {
          * @param weight The weight
          * @return This builder, for chaining
          */
-        Builder type(DoublePlantType type, int weight);
+        Builder type(DoublePlantType type, double weight);
 
         /**
          * Sets the number of plants to create, cannot be negative.

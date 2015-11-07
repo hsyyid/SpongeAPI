@@ -26,11 +26,8 @@ package org.spongepowered.api.world.gen.populator;
 
 import org.spongepowered.api.data.type.PlantType;
 import org.spongepowered.api.util.VariableAmount;
-import org.spongepowered.api.util.weightedold.WeightedCollection;
-import org.spongepowered.api.util.weightedold.WeightedObject;
+import org.spongepowered.api.util.weighted.WeightedTable;
 import org.spongepowered.api.world.gen.Populator;
-
-import java.util.Collection;
 
 /**
  * Represents a populator which scatters flowers randomly around a chunk.
@@ -77,7 +74,7 @@ public interface Flower extends Populator {
      * 
      * @return The plant types
      */
-    WeightedCollection<WeightedObject<PlantType>> getFlowerTypes();
+    WeightedTable<PlantType> getFlowerTypes();
 
     /**
      * A builder for constructing {@link Flower} populators.
@@ -118,15 +115,7 @@ public interface Flower extends Populator {
          * @param types The plant types to spawn
          * @return This builder, for chaining
          */
-        Builder types(WeightedObject<PlantType>... types);
-
-        /**
-         * Sets the plant types for this populator to spawn.
-         * 
-         * @param types The plant types to spawn
-         * @return This builder, for chaining
-         */
-        Builder types(Collection<WeightedObject<PlantType>> types);
+        Builder types(WeightedTable<PlantType> types);
 
         /**
          * Adds the plant type to the list of types to spawn with the given weight.
@@ -135,7 +124,7 @@ public interface Flower extends Populator {
          * @param weight The weight of the type
          * @return This builder, for chaining
          */
-        Builder type(PlantType type, int weight);
+        Builder type(PlantType type, double weight);
 
         /**
          * Resets this builder to the default values.

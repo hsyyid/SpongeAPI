@@ -24,7 +24,7 @@
  */
 package org.spongepowered.api.world.gen;
 
-import org.spongepowered.api.world.gen.populator.Mushroom;
+import org.spongepowered.api.world.gen.populator.BigMushroom;
 import org.spongepowered.api.world.gen.populator.BlockBlob;
 import org.spongepowered.api.world.gen.populator.Cactus;
 import org.spongepowered.api.world.gen.populator.DesertWell;
@@ -38,6 +38,7 @@ import org.spongepowered.api.world.gen.populator.IcePath;
 import org.spongepowered.api.world.gen.populator.IceSpike;
 import org.spongepowered.api.world.gen.populator.Lake;
 import org.spongepowered.api.world.gen.populator.Melon;
+import org.spongepowered.api.world.gen.populator.Mushroom;
 import org.spongepowered.api.world.gen.populator.Ore;
 import org.spongepowered.api.world.gen.populator.Pumpkin;
 import org.spongepowered.api.world.gen.populator.RandomBlock;
@@ -52,6 +53,13 @@ import org.spongepowered.api.world.gen.populator.WaterLily;
  * A factory for creating new populators for use in modifying WorldGenerators.
  */
 public interface PopulatorFactory {
+
+    /**
+     * Creates a new {@link BigMushroom} populator builder.
+     * 
+     * @return A new builder instance
+     */
+    BigMushroom.Builder createBigMushroomPopulator();
 
     /**
      * Creates a new {@link Mushroom} populator builder.

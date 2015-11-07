@@ -28,6 +28,7 @@ package org.spongepowered.api.util;
 import com.flowpowered.math.GenericMath;
 import com.google.common.base.Objects;
 import org.spongepowered.api.data.DataContainer;
+import org.spongepowered.api.data.DataQuery;
 import org.spongepowered.api.data.DataSerializable;
 import org.spongepowered.api.data.MemoryDataContainer;
 import org.spongepowered.api.data.Queries;
@@ -343,8 +344,8 @@ public abstract class VariableAmount implements DataSerializable {
         @Override
         public DataContainer toContainer() {
             return new MemoryDataContainer()
-                .set(of("Base"), this.base)
-                .set(of("Variance"), this.addition);
+                .set(DataQuery.of("Base"), this.base)
+                .set(DataQuery.of("Variance"), this.addition);
         }
     }
 

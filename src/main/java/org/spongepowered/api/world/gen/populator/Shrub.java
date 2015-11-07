@@ -24,11 +24,8 @@
  */
 package org.spongepowered.api.world.gen.populator;
 
-import java.util.Collection;
-
 import org.spongepowered.api.data.type.ShrubType;
 import org.spongepowered.api.util.VariableAmount;
-import org.spongepowered.api.util.weighted.WeightedObject;
 import org.spongepowered.api.util.weighted.WeightedTable;
 import org.spongepowered.api.world.gen.Populator;
 
@@ -43,7 +40,7 @@ public interface Shrub extends Populator {
      * 
      * @return The shrub types
      */
-    WeightedTable<ShrubType, Chunk> getType();
+    WeightedTable<ShrubType> getType();
 
     /**
      * Gets the number of shrubs to attempt to spawn per chunk, must be greater
@@ -102,15 +99,7 @@ public interface Shrub extends Populator {
          * @param types The new shrub types
          * @return This builder, for chaining
          */
-        Builder types(WeightedObject<ShrubType>... types);
-
-        /**
-         * Sets the weighted {@link ShrubType}s to place.
-         * 
-         * @param types The new shrub types
-         * @return This builder, for chaining
-         */
-        Builder types(Collection<WeightedObject<ShrubType>> types);
+        Builder types(WeightedTable<ShrubType> types);
 
         /**
          * Adds the weighted {@link ShrubType}s to the list of types.

@@ -24,11 +24,8 @@
  */
 package org.spongepowered.api.world.gen.populator;
 
-import java.util.Collection;
-
 import org.spongepowered.api.util.VariableAmount;
-import org.spongepowered.api.util.weightedold.WeightedCollection;
-import org.spongepowered.api.util.weightedold.WeightedMushroomType;
+import org.spongepowered.api.util.weighted.ChanceTable;
 import org.spongepowered.api.world.gen.Populator;
 import org.spongepowered.api.world.gen.type.MushroomType;
 import org.spongepowered.api.world.gen.type.MushroomTypes;
@@ -46,7 +43,7 @@ public interface Mushroom extends Populator {
      * 
      * @return The weighted list
      */
-    WeightedCollection<WeightedMushroomType> getType();
+    ChanceTable<MushroomType> getType();
 
     /**
      * Gets a representation of the amount of mushrooms which will be attempted
@@ -85,20 +82,6 @@ public interface Mushroom extends Populator {
     default void setMushroomsPerChunk(int count) {
         setMushroomsPerChunk(VariableAmount.fixed(count));
     }
-    
-    /**
-     * Gets the probability of a mushroom being placed.
-     * 
-     * @return The placement probability
-     */
-    double getPlacementProbability();
-    
-    /**
-     * Sets the probability of a mushroom being placed.
-     * 
-     * @param p The new probability
-     */
-    void setPlacementProbability(double p);
 
     /**
      * A builder for constructing {@link Mushroom} populators.
@@ -112,24 +95,7 @@ public interface Mushroom extends Populator {
          * @param types The weighted types
          * @return This builder, for chaining
          */
-        Builder types(WeightedMushroomType... types);
-
-        /**
-         * Sets the weighted {@link MushroomType}s to select from during
-         * generation.
-         * 
-         * @param types The weighted types
-         * @return This builder, for chaining
-         */
-        Builder types(Collection<WeightedMushroomType> types);
-
-        /**
-         * Adds the weighted {@link MushroomType} to the list of available types
-         * 
-         * @param type The new weighted type
-         * @return This builder, for chaining
-         */
-        Builder type(WeightedMushroomType type);
+        Builder types(ChanceTable<MushroomType> types);
 
         /**
          * Adds the weighted {@link MushroomType} to the list of available types
@@ -138,7 +104,7 @@ public interface Mushroom extends Populator {
          * @param weight The weight of the new type
          * @return This builder, for chaining
          */
-        Builder type(MushroomType type, int weight, boolean large);
+        Builder type(MushroomType type, double weight);
 
         /**
          * Sets the number of mushrooms which will be attempted to be spawned.
@@ -151,14 +117,6 @@ public interface Mushroom extends Populator {
          * @return This builder, for chaining
          */
         Builder mushroomsPerChunk(VariableAmount count);
-        
-        /**
-         * Sets the probability of a mushroom being placed.
-         * 
-         * @param p The new probability
-         * @return This builder, for chaining
-         */
-        Builder probability(double p);
 
         /**
          * Sets the number of mushrooms which will be attempted to be spawned.
