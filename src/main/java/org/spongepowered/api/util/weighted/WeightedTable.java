@@ -60,6 +60,15 @@ public class WeightedTable<T> extends RandomObjectTable<T> {
     }
 
     @Override
+    public boolean add(T object, double weight) {
+        boolean added = super.add(object, weight);
+        if (added) {
+            recalculateWeight();
+        }
+        return added;
+    }
+
+    @Override
     public boolean addAll(Collection<? extends TableEntry<T>> c) {
         boolean added = super.addAll(c);
         if (added) {
@@ -71,6 +80,15 @@ public class WeightedTable<T> extends RandomObjectTable<T> {
     @Override
     public boolean remove(Object entry) {
         boolean removed = super.remove(entry);
+        if (removed) {
+            recalculateWeight();
+        }
+        return removed;
+    }
+
+    @Override
+    public boolean removeObject(Object entry) {
+        boolean removed = super.removeObject(entry);
         if (removed) {
             recalculateWeight();
         }
@@ -106,14 +124,25 @@ public class WeightedTable<T> extends RandomObjectTable<T> {
      */
     protected void recalculateWeight() {
         this.totalWeight = 0;
-        for (TableEntry<T> entry : getEntries()) {
-            this.totalWeight += entry.getWeight();
+        for (Iterator<TableEntry<T>> it = this.entries.iterator(); it.hasNext();) {
+            TableEntry<T> entry = it.next();
+            if (entry.getWeight() < 0) {
+                // Negative weights on entries will really break this, so we
+                // remove them if found, this is fine as a negatively weighted
+                // entry should never be picked anyway
+                it.remove();
+            } else {
+                this.totalWeight += entry.getWeight();
+            }
         }
     }
 
     @Override
     public List<T> get(Random rand) {
         List<T> results = Lists.newArrayList();
+        if(this.entries.isEmpty()) {
+            return results;
+        }
         for (int i = 0; i < getRolls(); i++) {
             double roll = rand.nextDouble() * this.totalWeight;
             for (Iterator<TableEntry<T>> it = this.entries.iterator(); it.hasNext();) {

@@ -36,8 +36,13 @@ import java.util.Random;
 
 /**
  * Represents a value which may vary randomly.
+ * 
+ * <p>Implementors of this interface using it in a fashion in which may ever be
+ * serialized <strong>must</strong> implement the {@link #toContainer()}
+ * method.</p>
  */
-public abstract class VariableAmount implements DataSerializable {
+@FunctionalInterface
+public interface VariableAmount extends DataSerializable {
 
     /**
      * Creates a new 'fixed' variable amount, calls to {@link #getAmount} will
@@ -151,9 +156,6 @@ public abstract class VariableAmount implements DataSerializable {
      * @return A variable amount representation
      */
     public static VariableAmount baseWithOptionalAddition(double base, double addition, double chance) {
-        if(base == -999) {
-            return null;
-        }
         return new OptionalAmount(base, chance, baseWithRandomAddition(base, addition));
     }
 
@@ -182,7 +184,7 @@ public abstract class VariableAmount implements DataSerializable {
      * @param rand The random object
      * @return The amount
      */
-    public abstract double getAmount(Random rand);
+    double getAmount(Random rand);
 
     /**
      * Gets the amount as if from {@link #getAmount(Random)} but floored to the
@@ -191,15 +193,21 @@ public abstract class VariableAmount implements DataSerializable {
      * @param rand The random object
      * @return The floored amount
      */
-    public int getFlooredAmount(Random rand) {
+    default int getFlooredAmount(Random rand) {
         return GenericMath.floor(getAmount(rand));
+    }
+
+    // This is overridden to allow this to be a functional interface as this
+    // greatly increases the usability of the interface.
+    default DataContainer toContainer() {
+        throw new UnsupportedOperationException();
     }
 
     /**
      * Represents a fixed amount, calls to {@link #getAmount} will always return
      * the same fixed value.
      */
-    public static class Fixed extends VariableAmount {
+    public static class Fixed implements VariableAmount {
 
         private double amount;
 
@@ -248,7 +256,7 @@ public abstract class VariableAmount implements DataSerializable {
      * base amount plus or minus a random amount between zero (inclusive) and
      * the variance (exclusive).
      */
-    public static class BaseAndVariance extends VariableAmount {
+    public static class BaseAndVariance implements VariableAmount {
 
         private double base;
         private VariableAmount variance;
@@ -303,7 +311,7 @@ public abstract class VariableAmount implements DataSerializable {
      * the base amount plus a random amount between zero (inclusive) and the
      * addition (exclusive).
      */
-    public static class BaseAndAddition extends VariableAmount {
+    public static class BaseAndAddition implements VariableAmount {
 
         private double base;
         private VariableAmount addition;
@@ -356,7 +364,7 @@ public abstract class VariableAmount implements DataSerializable {
      * This wraps another {@link VariableAmount} which it refers to if the
      * chance succeeds.
      */
-    public static class OptionalAmount extends VariableAmount {
+    public static class OptionalAmount implements VariableAmount {
 
         private double chance;
         private double base;

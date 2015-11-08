@@ -58,6 +58,9 @@ public class ChanceTable<T> extends RandomObjectTable<T> {
     @Override
     public List<T> get(Random rand) {
         List<T> results = Lists.newArrayList();
+        if(this.entries.isEmpty()) {
+            return results;
+        }
         for (int i = 0; i < getRolls(); i++) {
             for (Iterator<TableEntry<T>> it = this.entries.iterator(); it.hasNext();) {
                 TableEntry<T> next = it.next();

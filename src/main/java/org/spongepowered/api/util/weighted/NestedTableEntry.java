@@ -24,6 +24,8 @@
  */
 package org.spongepowered.api.util.weighted;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import com.google.common.base.Objects;
 
 import java.util.List;
@@ -41,7 +43,7 @@ public class NestedTableEntry<T> extends TableEntry<T> {
 
     public NestedTableEntry(double weight, RandomObjectTable<T> table) {
         super(weight);
-        this.table = table;
+        this.table = checkNotNull(table);
     }
 
     /**
@@ -68,7 +70,11 @@ public class NestedTableEntry<T> extends TableEntry<T> {
 
     @Override
     public int hashCode() {
-        return this.table.hashCode();
+        int r = 1;
+        long w = Double.doubleToLongBits(getWeight());
+        r = r * 37 + (int) (w ^ (w >>> 32));
+        r = r * 37 + this.table.hashCode();
+        return r;
     }
 
     @Override

@@ -24,6 +24,9 @@
  */
 package org.spongepowered.api.util.weighted;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkArgument;
+
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
@@ -44,6 +47,7 @@ public abstract class RandomObjectTable<T> implements Collection<TableEntry<T>> 
     private int rolls;
 
     public RandomObjectTable(int rolls) {
+        checkArgument(rolls >= 0, "Rolls cannot be negative");
         this.rolls = rolls;
     }
 
@@ -68,12 +72,31 @@ public abstract class RandomObjectTable<T> implements Collection<TableEntry<T>> 
 
     @Override
     public boolean add(TableEntry<T> entry) {
-        return this.entries.add(entry);
+        return this.entries.add(checkNotNull(entry));
+    }
+
+    /**
+     * Adds the given object to the table with the given weight.
+     * 
+     * @param object The new object
+     * @param weight The weight of the object
+     * @return If the object was successfully added
+     */
+    public boolean add(T object, double weight) {
+        checkArgument(weight >= 0, "Weight cannot be negative");
+        return add(new WeightedObject<T>(checkNotNull(object), weight));
     }
 
     @Override
     public boolean addAll(Collection<? extends TableEntry<T>> c) {
-        return this.entries.addAll(c);
+        boolean flag = false;
+        for(TableEntry<T> e: c) {
+            if(e != null) {
+                add(e);
+                flag = true;
+            }
+        }
+        return flag;
     }
 
     @Override
@@ -131,6 +154,28 @@ public abstract class RandomObjectTable<T> implements Collection<TableEntry<T>> 
     @Override
     public boolean remove(Object entry) {
         return this.entries.remove(entry);
+    }
+
+    /**
+     * Removes the first instance of an entry in this table which is a
+     * {@link WeightedObject} entry and contains the given object.
+     * 
+     * @param object The object to remove
+     * @return If the table was changed as a result
+     */
+    public boolean removeObject(Object object) {
+        boolean flag = this.entries.remove(object);
+        if (flag) {
+            return true;
+        }
+        for (Iterator<TableEntry<T>> it = this.entries.iterator(); it.hasNext();) {
+            TableEntry<T> e = it.next();
+            if (e instanceof WeightedObject && ((WeightedObject<T>) e).get().equals(object)) {
+                it.remove();
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

@@ -24,6 +24,8 @@
  */
 package org.spongepowered.api.util.weighted;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 
@@ -51,7 +53,7 @@ public class LootTable<T> {
      * @param table The new table
      */
     public void addPool(RandomObjectTable<T> table) {
-        this.pool.add(table);
+        this.pool.add(checkNotNull(table));
     }
 
     /**

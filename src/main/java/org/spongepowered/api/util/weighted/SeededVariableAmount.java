@@ -31,7 +31,8 @@ import java.util.Random;
  * 
  * @param <T> The seed object type
  */
-public abstract class SeededVariableAmount<T> {
+@FunctionalInterface
+public interface SeededVariableAmount<T> {
 
     /**
      * Creates a new 'fixed' variable amount, calls to {@link #getAmount} will
@@ -65,7 +66,7 @@ public abstract class SeededVariableAmount<T> {
      * @param seed The seed object
      * @return The amount
      */
-    public abstract double getAmount(Random rand, T seed);
+    double getAmount(Random rand, T seed);
 
     /**
      * Gets the amount as if from {@link #getAmount(Random, Object)} but floored
@@ -75,7 +76,7 @@ public abstract class SeededVariableAmount<T> {
      * @param seed The seed object
      * @return The floored amount
      */
-    public int getFlooredAmount(Random rand, T seed) {
+    default int getFlooredAmount(Random rand, T seed) {
         return (int) Math.floor(getAmount(rand, seed));
     }
 
@@ -85,7 +86,7 @@ public abstract class SeededVariableAmount<T> {
      * 
      * @param <T> The seed type
      */
-    public static final class WrappedVariableAmount<T> extends SeededVariableAmount<T> {
+    public static final class WrappedVariableAmount<T> implements SeededVariableAmount<T> {
 
         private final VariableAmount inner;
 

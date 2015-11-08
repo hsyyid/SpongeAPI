@@ -65,7 +65,11 @@ public class WeightedObject<T> extends TableEntry<T> {
 
     @Override
     public int hashCode() {
-        return this.object.hashCode();
+        int r = 1;
+        long w = Double.doubleToLongBits(getWeight());
+        r = r * 37 + (int) (w ^ (w >>> 32));
+        r = r * 37 + this.object.hashCode();
+        return r;
     }
 
     @Override
