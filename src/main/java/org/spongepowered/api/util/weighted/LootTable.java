@@ -24,32 +24,82 @@
  */
 package org.spongepowered.api.util.weighted;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Represents a pool of tables which are rolled sequentially when retrieving
+ * entries.
+ *
+ * @param <T> The entry type
+ */
 public class LootTable<T> {
 
-    private List<RandomObjectTable<T>> pools = new ArrayList<>();
+    private List<RandomObjectTable<T>> pool = new ArrayList<>();
 
     public LootTable() {
 
     }
 
-    public void addPool(RandomObjectTable<T> pool) {
-        this.pools.add(pool);
+    /**
+     * Adds a table to the pool.
+     * 
+     * @param table The new table
+     */
+    public void addPool(RandomObjectTable<T> table) {
+        this.pool.add(table);
     }
 
+    /**
+     * Gets a List of objects as retrieved from all pools.
+     * 
+     * @param rand The random object to use
+     * @return The retrieved entries
+     */
     public List<T> get(Random rand) {
         List<T> results = Lists.newArrayList();
-        for (RandomObjectTable<T> pool : this.pools) {
+        for (RandomObjectTable<T> pool : this.pool) {
             results.addAll(pool.get(rand));
         }
         return results;
     }
 
-    // TODO Deamon add equals and hashcode
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof LootTable)) {
+            return false;
+        }
+        LootTable<?> c = (LootTable<?>) o;
+        if (this.pool.size() != c.pool.size()) {
+            return false;
+        }
+        for (int i = 0; i < this.pool.size(); i++) {
+            if (!this.pool.get(i).equals(c.pool.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int r = 1;
+        for (RandomObjectTable<T> table : this.pool) {
+            r = r * 37 + table.hashCode();
+        }
+        return r;
+    }
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this).add("pool", this.pool).toString();
+    }
 
 }

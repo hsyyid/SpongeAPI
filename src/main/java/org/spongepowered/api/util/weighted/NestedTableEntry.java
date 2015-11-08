@@ -24,22 +24,56 @@
  */
 package org.spongepowered.api.util.weighted;
 
+import com.google.common.base.Objects;
+
 import java.util.List;
 import java.util.Random;
 
-public class NestedTableEntry<T> extends WeightedTableEntry<T> {
+/**
+ * Represents a {@link RandomObjectTable} which is nested inside the entry of
+ * another table.
+ *
+ * @param <T> The entry type
+ */
+public class NestedTableEntry<T> extends TableEntry<T> {
 
     private final RandomObjectTable<T> table;
-    
+
     public NestedTableEntry(double weight, RandomObjectTable<T> table) {
         super(weight);
         this.table = table;
     }
 
+    /**
+     * Retrieves entries from the nested table.
+     * 
+     * @param rand The random object to use
+     * @return The retrieved entries
+     */
     public List<T> get(Random rand) {
         return this.table.get(rand);
     }
-    
-    //TODO Deamon add equals and hashcode
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof NestedTableEntry)) {
+            return false;
+        }
+        NestedTableEntry<?> c = (NestedTableEntry<?>) o;
+        return this.table.equals(c.table);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.table.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this).add("table", this.table).toString();
+    }
 
 }

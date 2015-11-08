@@ -26,7 +26,14 @@ package org.spongepowered.api.util.weighted;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class WeightedObject<T> extends WeightedTableEntry<T> {
+import com.google.common.base.Objects;
+
+/**
+ * An entry which contains an object.
+ *
+ * @param <T> The entry type
+ */
+public class WeightedObject<T> extends TableEntry<T> {
 
     private final T object;
 
@@ -35,10 +42,34 @@ public class WeightedObject<T> extends WeightedTableEntry<T> {
         this.object = checkNotNull(obj);
     }
 
+    /**
+     * Gets the entry contained in this entry.
+     * 
+     * @return The object
+     */
     public T get() {
         return this.object;
     }
 
-    
-    //TODO Deamon add equals and hashcode
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof WeightedObject)) {
+            return false;
+        }
+        WeightedObject<?> c = (WeightedObject<?>) o;
+        return this.object.equals(c.object) && getWeight() == c.getWeight();
+    }
+
+    @Override
+    public int hashCode() {
+        return this.object.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this).add("object", this.object).toString();
+    }
 }

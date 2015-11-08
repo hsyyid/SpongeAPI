@@ -33,9 +33,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
 
-public abstract class ConditionalRandomObjectTable<T, C> implements Collection<WeightedTableEntry<T>> {
+public abstract class ConditionalRandomObjectTable<T, C> implements Collection<TableEntry<T>> {
 
-    protected final List<WeightedTableEntry<T>> entries = Lists.newArrayList();
+    protected final List<TableEntry<T>> entries = Lists.newArrayList();
     protected final List<Predicate<C>> conditions = Lists.newArrayList();
     private int rolls;
 
@@ -52,12 +52,12 @@ public abstract class ConditionalRandomObjectTable<T, C> implements Collection<W
     }
 
     @Override
-    public boolean add(WeightedTableEntry<T> entry) {
+    public boolean add(TableEntry<T> entry) {
         return this.entries.add(entry);
     }
 
     @Override
-    public boolean addAll(Collection<? extends WeightedTableEntry<T>> c) {
+    public boolean addAll(Collection<? extends TableEntry<T>> c) {
         return this.entries.retainAll(c);
     }
 
@@ -71,7 +71,7 @@ public abstract class ConditionalRandomObjectTable<T, C> implements Collection<W
         if (entry) {
             return true;
         }
-        for (WeightedTableEntry<T> e : this.entries) {
+        for (TableEntry<T> e : this.entries) {
             if (e instanceof WeightedObject && ((WeightedObject<T>) e).get().equals(o)) {
                 return true;
             }
@@ -138,12 +138,12 @@ public abstract class ConditionalRandomObjectTable<T, C> implements Collection<W
 
     public abstract List<T> get(Random rand, C object);
 
-    public List<WeightedTableEntry<T>> getEntries() {
+    public List<TableEntry<T>> getEntries() {
         return ImmutableList.copyOf(this.entries);
     }
 
     @Override
-    public Iterator<WeightedTableEntry<T>> iterator() {
+    public Iterator<TableEntry<T>> iterator() {
         return this.entries.iterator();
     }
 

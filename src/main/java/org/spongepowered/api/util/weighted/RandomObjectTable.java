@@ -32,30 +32,47 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public abstract class RandomObjectTable<T> implements Collection<WeightedTableEntry<T>> {
+/**
+ * An abstract table holding weighted objects. Objects may be retrieved from the
+ * table according to weight or chance.
+ *
+ * @param <T> The type of entry
+ */
+public abstract class RandomObjectTable<T> implements Collection<TableEntry<T>> {
 
-    protected final List<WeightedTableEntry<T>> entries = Lists.newArrayList();
+    protected final List<TableEntry<T>> entries = Lists.newArrayList();
     private int rolls;
 
     public RandomObjectTable(int rolls) {
         this.rolls = rolls;
     }
 
+    /**
+     * Gets the number of times this table will roll while retrieving items. For
+     * each roll a complete pass through of the table will occur.
+     * 
+     * @return The number of rolls
+     */
     public int getRolls() {
         return this.rolls;
     }
 
-    public void setRolls(int r) {
-        this.rolls = r;
+    /**
+     * Sets the number of times this table will roll while retrieving tiems.
+     * 
+     * @param rolls The new roll count
+     */
+    public void setRolls(int rolls) {
+        this.rolls = rolls;
     }
 
     @Override
-    public boolean add(WeightedTableEntry<T> entry) {
+    public boolean add(TableEntry<T> entry) {
         return this.entries.add(entry);
     }
 
     @Override
-    public boolean addAll(Collection<? extends WeightedTableEntry<T>> c) {
+    public boolean addAll(Collection<? extends TableEntry<T>> c) {
         return this.entries.addAll(c);
     }
 
@@ -64,12 +81,19 @@ public abstract class RandomObjectTable<T> implements Collection<WeightedTableEn
         return this.entries.contains(o);
     }
 
+    /**
+     * Gets if this table contains the given object, the object may either be a
+     * {@link TableEntry} or the object contained within.
+     * 
+     * @param o The object to check for
+     * @return If the object is contained within the table
+     */
     public boolean containsObject(Object o) {
         boolean entry = this.entries.contains(o);
         if (entry) {
             return true;
         }
-        for (WeightedTableEntry<T> e : this.entries) {
+        for (TableEntry<T> e : this.entries) {
             if (e instanceof WeightedObject && ((WeightedObject<T>) e).get().equals(o)) {
                 return true;
             }
@@ -81,10 +105,18 @@ public abstract class RandomObjectTable<T> implements Collection<WeightedTableEn
     public boolean containsAll(Collection<?> c) {
         return this.entries.containsAll(c);
     }
-    
+
+    /**
+     * Gets if this table contains all of the given objects, the objects may
+     * either be {@link TableEntry}s or the objects contained within the
+     * entries.
+     * 
+     * @param o The objects to check for
+     * @return If all of the objects are contained within the table
+     */
     public boolean containsAllObjects(Collection<?> c) {
-        for(Object e: c) {
-            if(!contains(e)) {
+        for (Object e : c) {
+            if (!contains(e)) {
                 return false;
             }
         }
@@ -121,14 +153,28 @@ public abstract class RandomObjectTable<T> implements Collection<WeightedTableEn
         return this.entries.size();
     }
 
+    /**
+     * Performs a number of rolls according to the number of rolls defined by
+     * {@link #getRolls()} and returns items from the table for each roll.
+     * 
+     * @param rand The random object to use
+     * @return The returned items, may be empty but not null
+     */
     public abstract List<T> get(Random rand);
 
-    public List<WeightedTableEntry<T>> getEntries() {
+    /**
+     * Gets the entries in the table. Note that the specific sub class of this
+     * abstract table will determine the context that the entry weights should
+     * be interpreted in (either weights or chances).
+     * 
+     * @return The raw entries
+     */
+    public List<TableEntry<T>> getEntries() {
         return ImmutableList.copyOf(this.entries);
     }
 
     @Override
-    public Iterator<WeightedTableEntry<T>> iterator() {
+    public Iterator<TableEntry<T>> iterator() {
         return this.entries.iterator();
     }
 
@@ -141,7 +187,4 @@ public abstract class RandomObjectTable<T> implements Collection<WeightedTableEn
     public <T> T[] toArray(T[] a) {
         return this.entries.toArray(a);
     }
-    
-    //TODO Deamon add equals and hashcode
-
 }

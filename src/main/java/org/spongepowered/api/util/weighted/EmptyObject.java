@@ -24,12 +24,19 @@
  */
 package org.spongepowered.api.util.weighted;
 
+import com.google.common.base.Objects;
 import org.spongepowered.api.data.DataContainer;
 import org.spongepowered.api.data.DataSerializable;
 import org.spongepowered.api.data.MemoryDataContainer;
 import org.spongepowered.api.data.Queries;
 
-public class EmptyObject<T> extends WeightedTableEntry<T> implements DataSerializable {
+/**
+ * Represents an entry in a table which has no associated object. Used to have
+ * rolls which give nothing.
+ *
+ * @param <T> The type of object of this entries table
+ */
+public class EmptyObject<T> extends TableEntry<T> implements DataSerializable {
 
     public EmptyObject(double weight) {
         super(weight);
@@ -40,6 +47,29 @@ public class EmptyObject<T> extends WeightedTableEntry<T> implements DataSeriali
         return new MemoryDataContainer()
                 .set(Queries.WEIGHTED_SERIALIZABLE_WEIGHT, getWeight());
     }
-    
-    //TODO Deamon add equals and hashcode
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof EmptyObject)) {
+            return false;
+        }
+        EmptyObject<?> c = (EmptyObject<?>) o;
+        return getWeight() == c.getWeight();
+    }
+
+    @Override
+    public int hashCode() {
+        int r = 1;
+        long w = Double.doubleToLongBits(getWeight());
+        r = r * 37 + (int) (w ^ (w >>> 32));
+        return r;
+    }
+
+    @Override
+    public String toString() {
+        return Objects.toStringHelper(this).add("weight", getWeight()).toString();
+    }
 }

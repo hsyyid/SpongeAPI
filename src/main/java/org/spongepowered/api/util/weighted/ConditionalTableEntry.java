@@ -24,10 +24,10 @@
  */
 package org.spongepowered.api.util.weighted;
 
-public abstract class WeightedTableEntry<T> {
+public abstract class ConditionalTableEntry<T> {
     private final double weight;
 
-    public WeightedTableEntry(double weight) {
+    public ConditionalTableEntry(double weight) {
         this.weight = weight;
     }
 

@@ -31,6 +31,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * A table of weighted entry, each entry is given a weight, the higher the
+ * weight the more likely the chance that the entry is chosen. Each roll will
+ * only return a single entries value.
+ *
+ * @param <T> The entry type
+ */
 public class WeightedTable<T> extends RandomObjectTable<T> {
 
     private double totalWeight = 0;
@@ -44,7 +51,7 @@ public class WeightedTable<T> extends RandomObjectTable<T> {
     }
 
     @Override
-    public boolean add(WeightedTableEntry<T> entry) {
+    public boolean add(TableEntry<T> entry) {
         boolean added = super.add(entry);
         if (added) {
             recalculateWeight();
@@ -53,7 +60,7 @@ public class WeightedTable<T> extends RandomObjectTable<T> {
     }
 
     @Override
-    public boolean addAll(Collection<? extends WeightedTableEntry<T>> c) {
+    public boolean addAll(Collection<? extends TableEntry<T>> c) {
         boolean added = super.addAll(c);
         if (added) {
             recalculateWeight();
@@ -94,9 +101,12 @@ public class WeightedTable<T> extends RandomObjectTable<T> {
         recalculateWeight();
     }
 
+    /**
+     * Recalculates the total weight of all entries in this table.
+     */
     protected void recalculateWeight() {
         this.totalWeight = 0;
-        for (WeightedTableEntry<T> entry : getEntries()) {
+        for (TableEntry<T> entry : getEntries()) {
             this.totalWeight += entry.getWeight();
         }
     }
@@ -106,8 +116,8 @@ public class WeightedTable<T> extends RandomObjectTable<T> {
         List<T> results = Lists.newArrayList();
         for (int i = 0; i < getRolls(); i++) {
             double roll = rand.nextDouble() * this.totalWeight;
-            for (Iterator<WeightedTableEntry<T>> it = this.entries.iterator(); it.hasNext();) {
-                WeightedTableEntry<T> next = it.next();
+            for (Iterator<TableEntry<T>> it = this.entries.iterator(); it.hasNext();) {
+                TableEntry<T> next = it.next();
                 roll -= next.getWeight();
                 if (roll <= 0) {
                     if (next instanceof NestedTableEntry) {
@@ -123,19 +133,62 @@ public class WeightedTable<T> extends RandomObjectTable<T> {
     }
 
     @Override
-    public Iterator<WeightedTableEntry<T>> iterator() {
+    public Iterator<TableEntry<T>> iterator() {
         return new Itr();
     }
-    
-    //TODO Deamon add equals and hashcode
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof WeightedTable)) {
+            return false;
+        }
+        WeightedTable<?> c = (WeightedTable<?>) o;
+        if (getRolls() != c.getRolls()) {
+            return false;
+        }
+        if (this.entries.size() != c.entries.size()) {
+            return false;
+        }
+        for (int i = 0; i < this.entries.size(); i++) {
+            if (!this.entries.get(i).equals(c.entries.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int r = 1;
+        r = r * 37 + getRolls();
+        for (TableEntry<T> entry : this.entries) {
+            r = r * 37 + entry.hashCode();
+        }
+        return r;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder r = new StringBuilder();
+        r.append("WeightedTable (rolls=").append(getRolls());
+        r.append(",entries=").append(this.entries.size()).append(") {\n");
+        for (TableEntry<T> entry : this.entries) {
+            r.append("\t").append(entry.toString()).append("\n");
+        }
+        r.append("}");
+        return r.toString();
+    }
 
     /**
      * An iterator which will properly trigger a rebuild of the total weight on
      * removal.
      */
-    private class Itr implements Iterator<WeightedTableEntry<T>> {
+    private class Itr implements Iterator<TableEntry<T>> {
 
-        private final Iterator<WeightedTableEntry<T>> iter;
+        private final Iterator<TableEntry<T>> iter;
 
         protected Itr() {
             this.iter = WeightedTable.super.iterator();
@@ -147,7 +200,7 @@ public class WeightedTable<T> extends RandomObjectTable<T> {
         }
 
         @Override
-        public WeightedTableEntry<T> next() {
+        public TableEntry<T> next() {
             return this.iter.next();
         }
 

@@ -40,12 +40,12 @@ public class ConditionalChanceTable<T, C> extends ConditionalRandomObjectTable<T
     @SuppressWarnings("unchecked")
     public List<T> get(Random rand, C object) {
         List<T> results = Lists.newArrayList();
-        if(!validate(object)) {
+        if (!validate(object)) {
             return results;
         }
         for (int i = 0; i < getRolls(); i++) {
-            for (Iterator<WeightedTableEntry<T>> it = this.entries.iterator(); it.hasNext();) {
-                WeightedTableEntry<T> next = it.next();
+            for (Iterator<TableEntry<T>> it = this.entries.iterator(); it.hasNext();) {
+                TableEntry<T> next = it.next();
                 if (rand.nextDouble() < next.getWeight()) {
                     if (next instanceof NestedTableEntry) {
                         results.addAll(((ConditionalNestedTableEntry<T, C>) next).get(rand, object));
@@ -57,6 +57,53 @@ public class ConditionalChanceTable<T, C> extends ConditionalRandomObjectTable<T
         }
         return results;
     }
-    
-    //TODO Deamon add equals and hashcode
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof ConditionalChanceTable)) {
+            return false;
+        }
+        ConditionalChanceTable<?, ?> c = (ConditionalChanceTable<?, ?>) o;
+        if (getRolls() != c.getRolls()) {
+            return false;
+        }
+        if (this.entries.size() != c.entries.size()) {
+            return false;
+        }
+        for (int i = 0; i < this.entries.size(); i++) {
+            if (!this.entries.get(i).equals(c.entries.get(i))) {
+                return false;
+            }
+        }
+        if (this.conditions.size() != c.conditions.size()) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int r = 1;
+        r = r * 37 + getRolls();
+        for (TableEntry<T> entry : this.entries) {
+            r = r * 37 + entry.hashCode();
+        }
+        r = r * 37 + this.conditions.size();
+        return r;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder r = new StringBuilder();
+        r.append("ConditionalChanceTable (rolls=").append(getRolls());
+        r.append(",entries=").append(this.entries.size()).append(") {\n");
+        for (TableEntry<T> entry : this.entries) {
+            r.append("\t").append(entry.toString()).append("\n");
+        }
+        r.append("}");
+        return r.toString();
+    }
 }

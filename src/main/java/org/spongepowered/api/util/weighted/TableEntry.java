@@ -24,16 +24,25 @@
  */
 package org.spongepowered.api.util.weighted;
 
-public abstract class ConditionalWeightedTableEntry<T> {
+/**
+ * An abstract entry which may be contained in any table.
+ *
+ * @param <T> The entry type
+ */
+public abstract class TableEntry<T> {
+
     private final double weight;
 
-    public ConditionalWeightedTableEntry(double weight) {
+    public TableEntry(double weight) {
         this.weight = weight;
     }
 
+    /**
+     * Gets the weight of this entry.
+     * 
+     * @return The weight
+     */
     public double getWeight() {
         return this.weight;
     }
-    
-    //TODO Deamon add equals and hashcode
 }

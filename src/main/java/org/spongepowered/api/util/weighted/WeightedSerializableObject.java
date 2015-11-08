@@ -30,7 +30,13 @@ import org.spongepowered.api.data.DataSerializable;
 import org.spongepowered.api.data.MemoryDataContainer;
 import org.spongepowered.api.data.Queries;
 
-public class WeightedSerializableObject<T extends DataSerializable> extends WeightedObject<T>implements DataSerializable {
+/**
+ * An entry which contains an object with the added restriction that the object
+ * be serializable.
+ *
+ * @param <T> The entry type
+ */
+public class WeightedSerializableObject<T extends DataSerializable> extends WeightedObject<T> implements DataSerializable {
 
     /**
      * Creates a new {@link WeightedSerializableObject} with the provided
@@ -53,14 +59,14 @@ public class WeightedSerializableObject<T extends DataSerializable> extends Weig
 
     @SuppressWarnings("rawtypes")
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
         }
-        if (obj == null || getClass() != obj.getClass()) {
+        if (!(o instanceof WeightedSerializableObject)) {
             return false;
         }
-        WeightedSerializableObject object = (WeightedSerializableObject) obj;
+        WeightedSerializableObject object = (WeightedSerializableObject) o;
         return get().equals(object.get()) && getWeight() == object.getWeight();
     }
 

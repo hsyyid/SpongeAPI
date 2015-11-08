@@ -30,12 +30,27 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * This is a variant of the {@link RandomObjectTable} which uses a 0-1 chance
+ * attached to every entry. When rolled the a chance roll is calculated for each
+ * entry and <strong>all</strong> entries which pass are returned.
+ *
+ * @param <T> The entry type
+ */
 public class ChanceTable<T> extends RandomObjectTable<T> {
 
+    /**
+     * Creates a new {@link ChanceTable} with a default roll count of 1.
+     */
     public ChanceTable() {
         super(1);
     }
 
+    /**
+     * Creates a new {@link ChanceTable}.
+     * 
+     * @param rolls The number of rolls to perform
+     */
     public ChanceTable(int rolls) {
         super(rolls);
     }
@@ -44,8 +59,8 @@ public class ChanceTable<T> extends RandomObjectTable<T> {
     public List<T> get(Random rand) {
         List<T> results = Lists.newArrayList();
         for (int i = 0; i < getRolls(); i++) {
-            for (Iterator<WeightedTableEntry<T>> it = this.entries.iterator(); it.hasNext();) {
-                WeightedTableEntry<T> next = it.next();
+            for (Iterator<TableEntry<T>> it = this.entries.iterator(); it.hasNext();) {
+                TableEntry<T> next = it.next();
                 if (rand.nextDouble() < next.getWeight()) {
                     if (next instanceof NestedTableEntry) {
                         results.addAll(((NestedTableEntry<T>) next).get(rand));
@@ -57,6 +72,49 @@ public class ChanceTable<T> extends RandomObjectTable<T> {
         }
         return results;
     }
-    
-    //TODO Deamon add equals and hashcode
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof ChanceTable)) {
+            return false;
+        }
+        ChanceTable<?> c = (ChanceTable<?>) o;
+        if (getRolls() != c.getRolls()) {
+            return false;
+        }
+        if (this.entries.size() != c.entries.size()) {
+            return false;
+        }
+        for (int i = 0; i < this.entries.size(); i++) {
+            if (!this.entries.get(i).equals(c.entries.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int r = 1;
+        r = r * 37 + getRolls();
+        for (TableEntry<T> entry : this.entries) {
+            r = r * 37 + entry.hashCode();
+        }
+        return r;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder r = new StringBuilder();
+        r.append("ChanceTable (rolls=").append(getRolls());
+        r.append(",entries=").append(this.entries.size()).append(") {\n");
+        for (TableEntry<T> entry : this.entries) {
+            r.append("\t").append(entry.toString()).append("\n");
+        }
+        r.append("}");
+        return r.toString();
+    }
 }

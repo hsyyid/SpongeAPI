@@ -26,11 +26,14 @@ package org.spongepowered.api.world.biome;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import com.google.common.base.Functions;
 import com.google.common.base.Objects;
 import org.spongepowered.api.block.BlockState;
-import org.spongepowered.api.util.weighted.SeededValue;
+import org.spongepowered.api.util.Functional;
 import org.spongepowered.api.util.weighted.SeededVariableAmount;
 import org.spongepowered.api.util.weighted.VariableAmount;
+
+import java.util.function.Function;
 
 /**
  * Represents a layer of BlockStates specific to a biome which may be placed in
@@ -38,7 +41,7 @@ import org.spongepowered.api.util.weighted.VariableAmount;
  */
 public class GroundCoverLayer {
 
-    private SeededValue<BlockState, Double> block;
+    private Function<Double, BlockState> block;
     private SeededVariableAmount<Double> depth;
 
     /**
@@ -48,10 +51,10 @@ public class GroundCoverLayer {
      * @param depth The depth of the layer
      */
     public GroundCoverLayer(BlockState block, SeededVariableAmount<Double> depth) {
-        this(SeededValue.constant(block), depth);
+        this(Functional.constant(block), depth);
     }
 
-    public GroundCoverLayer(SeededValue<BlockState, Double> block, SeededVariableAmount<Double> depth) {
+    public GroundCoverLayer(Function<Double, BlockState> block, SeededVariableAmount<Double> depth) {
         this.block = checkNotNull(block, "block");
         this.depth = checkNotNull(depth, "depth");
     }
@@ -61,7 +64,7 @@ public class GroundCoverLayer {
      * 
      * @return The block state
      */
-    public SeededValue<BlockState, Double> getBlockState() {
+    public Function<Double, BlockState> getBlockState() {
         return this.block;
     }
 
@@ -70,12 +73,12 @@ public class GroundCoverLayer {
      * 
      * @param block The block state
      */
-    public void setBlockState(SeededValue<BlockState, Double> block) {
+    public void setBlockState(Function<Double, BlockState> block) {
         this.block = checkNotNull(block, "block");
     }
 
     public void setBlockState(BlockState block) {
-        this.block = SeededValue.constant(checkNotNull(block, "block"));
+        this.block = Functional.constant(checkNotNull(block, "block"));
     }
 
     /**

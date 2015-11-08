@@ -44,7 +44,7 @@ public class ConditionalWeightedTable<T, C> extends ConditionalRandomObjectTable
     }
 
     @Override
-    public boolean add(WeightedTableEntry<T> entry) {
+    public boolean add(TableEntry<T> entry) {
         boolean added = super.add(entry);
         if (added) {
             recalculateWeight();
@@ -53,7 +53,7 @@ public class ConditionalWeightedTable<T, C> extends ConditionalRandomObjectTable
     }
 
     @Override
-    public boolean addAll(Collection<? extends WeightedTableEntry<T>> c) {
+    public boolean addAll(Collection<? extends TableEntry<T>> c) {
         boolean added = super.retainAll(c);
         if (added) {
             recalculateWeight();
@@ -96,7 +96,7 @@ public class ConditionalWeightedTable<T, C> extends ConditionalRandomObjectTable
 
     protected void recalculateWeight() {
         this.totalWeight = 0;
-        for (WeightedTableEntry<T> entry : getEntries()) {
+        for (TableEntry<T> entry : getEntries()) {
             this.totalWeight += entry.getWeight();
         }
     }
@@ -107,8 +107,8 @@ public class ConditionalWeightedTable<T, C> extends ConditionalRandomObjectTable
         List<T> results = Lists.newArrayList();
         for (int i = 0; i < getRolls(); i++) {
             double roll = rand.nextDouble() * this.totalWeight;
-            for (Iterator<WeightedTableEntry<T>> it = this.entries.iterator(); it.hasNext();) {
-                WeightedTableEntry<T> next = it.next();
+            for (Iterator<TableEntry<T>> it = this.entries.iterator(); it.hasNext();) {
+                TableEntry<T> next = it.next();
                 roll -= next.getWeight();
                 if (roll <= 0) {
                     if (next instanceof ConditionalNestedTableEntry) {
@@ -124,7 +124,7 @@ public class ConditionalWeightedTable<T, C> extends ConditionalRandomObjectTable
     }
 
     @Override
-    public Iterator<WeightedTableEntry<T>> iterator() {
+    public Iterator<TableEntry<T>> iterator() {
         return new Itr();
     }
     
@@ -134,9 +134,9 @@ public class ConditionalWeightedTable<T, C> extends ConditionalRandomObjectTable
      * An iterator which will properly trigger a rebuild of the total weight on
      * removal.
      */
-    private class Itr implements Iterator<WeightedTableEntry<T>> {
+    private class Itr implements Iterator<TableEntry<T>> {
 
-        private final Iterator<WeightedTableEntry<T>> iter;
+        private final Iterator<TableEntry<T>> iter;
 
         protected Itr() {
             this.iter = ConditionalWeightedTable.super.iterator();
@@ -148,7 +148,7 @@ public class ConditionalWeightedTable<T, C> extends ConditionalRandomObjectTable
         }
 
         @Override
-        public WeightedTableEntry<T> next() {
+        public TableEntry<T> next() {
             return this.iter.next();
         }
 

@@ -27,7 +27,7 @@ package org.spongepowered.api.util.weighted;
 import java.util.List;
 import java.util.Random;
 
-public class ConditionalNestedTableEntry<T, C> extends WeightedTableEntry<T> {
+public class ConditionalNestedTableEntry<T, C> extends TableEntry<T> {
 
     private final ConditionalRandomObjectTable<T, C> table;
     
