@@ -24,7 +24,7 @@
  */
 package org.spongepowered.api.entity.living;
 
-import org.spongepowered.api.ai.Goal;
+import org.spongepowered.api.ai.AITask;
 import org.spongepowered.api.data.manipulator.mutable.entity.AgentData;
 
 import java.util.Set;
@@ -45,13 +45,13 @@ public interface Agent extends Living {
     }
 
     /**
-     * Adds a {@link Goal} for this agent with a provided priority.
+     * Adds a {@link AITask} for this agent with a provided priority.
      *
      * @param priority The priority
-     * @param goal The goal
+     * @param AITask The AITask
      * @return This agent, for chaining
      */
-    Agent addGoal(int priority, Goal goal);
+    Agent addTask(int priority, AITask AITask);
 
-    <T extends Goal> Set<T> getGoals(Class<T> clazz);
+    <T extends AITask> Set<T> getTasks(Class<T> clazz);
 }

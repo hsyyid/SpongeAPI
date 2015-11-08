@@ -22,43 +22,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.ai;
+package org.spongepowered.api.ai.creature;
 
-import org.spongepowered.api.entity.living.Agent;
+public interface WanderAITask extends CreatureAITask {
 
-public abstract class AbstractGoal implements Goal {
-    private int mutex;
-    private boolean interruptible;
+    double getSpeed();
 
-    public AbstractGoal(int mutex, boolean interruptible) {
-        this.mutex = mutex;
-        this.interruptible = interruptible;
-    }
+    void setSpeed(double speed);
 
-    @Override
-    public int getMutex() {
-        return mutex;
-    }
+    int getExecutionChance();
 
-    @Override
-    public void setMutex(int mutex) {
-        this.mutex = mutex;
-    }
-
-    @Override
-    public boolean isInterruptible() {
-        return interruptible;
-    }
-
-    public abstract void assignedTo(Agent owner);
-
-    public abstract boolean shouldUpdate();
-
-    public abstract boolean continueUpdating();
-
-    public abstract void start();
-
-    public abstract void update();
-
-    public abstract void reset();
+    void setExecutionChance(int executionChance);
 }

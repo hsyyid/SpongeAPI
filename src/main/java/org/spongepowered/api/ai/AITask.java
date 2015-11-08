@@ -26,29 +26,29 @@ package org.spongepowered.api.ai;
 
 import org.spongepowered.api.entity.living.Agent;
 
-public interface Goal {
+public interface AITask {
 
     /**
-     * Gets the mutex that determines if this goal can run, concurrently, with another goal at the same time.
+     * Gets the mutex that determines if this task can run, concurrently, with another task at the same time.
      *
      * How this is handled is up to the implementation but for Minecraft it performs a bitwise AND between
-     * the two Goal objects such that <code>goalA.getMutex() & goalB.getMutex()</code> equaling '0' warrants
-     * the goals running co-currently. If the bitwise operation does not return 0, the goal with the
-     * "lowest" priority given in {@link Agent#addGoal(int, Goal)} will be ran first.
+     * the two AITask objects such that <code>taskA.getMutex() & taskB.getMutex()</code> equaling '0' warrants
+     * the tasks running co-currently. If the bitwise operation does not return 0, the task with the
+     * "lowest" priority given in {@link Agent#addTask(int, AITask)} will be ran first.
      *
      * @return The mutex
      */
     int getMutex();
 
     /**
-     * Sets the mutex. See {@link Goal#getMutex()}.
+     * Sets the mutex. See {@link AITask#getMutex()}.
      *
      * @param mutex The new mutex
      */
     void setMutex(int mutex);
 
     /**
-     * Returns if this goal is interruptible. Is true for all Minecraft standard goals.
+     * Returns if this task is interruptible. Is true for all Minecraft standard tasks.
      *
      * @return True if interruptible, false if not
      */
