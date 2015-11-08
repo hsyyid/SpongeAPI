@@ -24,10 +24,10 @@
  */
 package org.spongepowered.api.entity.living;
 
-import org.spongepowered.api.entity.ai.AITask;
 import org.spongepowered.api.data.manipulator.mutable.entity.AgentData;
+import org.spongepowered.api.entity.ai.AITask;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * An Agent represents a {@link Living} that has AI. In the future Sponge will
@@ -58,5 +58,7 @@ public interface Agent extends Living {
     // TODO Types, replace classes
     Agent removeTasks(Class<? extends AITask> clazz);
 
-    <T extends AITask> Set<T> getTasks(Class<T> clazz);
+    <T extends AITask> List<T> getTasksFor(Class<T> clazz);
+
+    List<? extends AITask> getTasks();
 }
