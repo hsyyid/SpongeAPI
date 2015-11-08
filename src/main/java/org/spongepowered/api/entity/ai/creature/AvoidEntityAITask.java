@@ -22,11 +22,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.ai.creature;
+package org.spongepowered.api.entity.ai.creature;
 
-import org.spongepowered.api.ai.AITask;
-import org.spongepowered.api.entity.living.Creature;
+import org.spongepowered.api.entity.Entity;
 
-public interface CreatureAITask extends AITask {
-    Creature getOwner();
+import java.util.function.Predicate;
+
+public interface AvoidEntityAITask extends CreatureAITask {
+
+    AvoidEntityAITask setTargetSelector(Predicate<Entity> predicate);
+
+    float getSearchDistance();
+
+    AvoidEntityAITask setSearchDistance(float distance);
+
+    double getCloseRangeSpeed();
+
+    AvoidEntityAITask setCloseRangeSpeed(double speed);
+
+    double getFarRangeSpeed();
+
+    AvoidEntityAITask setFarRangeSpeed(double speed);
 }

@@ -22,35 +22,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.ai;
+package org.spongepowered.api.entity.ai;
 
-import org.spongepowered.api.entity.living.Agent;
+import org.spongepowered.api.entity.Entity;
 
-public interface AITask {
+public abstract class AbstractAITask<T extends Entity> implements AITask {
+    private int mutex;
+    private boolean interruptible;
 
-    /**
-     * Gets the mutex that determines if this task can run, concurrently, with another task at the same time.
-     *
-     * How this is handled is up to the implementation but for Minecraft it performs a bitwise AND between
-     * the two AITask objects such that <code>taskA.getMutex() & taskB.getMutex()</code> equaling '0' warrants
-     * the tasks running co-currently. If the bitwise operation does not return 0, the task with the
-     * "lowest" priority given in {@link Agent#addTask(int, AITask)} will be ran first.
-     *
-     * @return The mutex
-     */
-    int getMutex();
+    public AbstractAITask(int mutex, boolean interruptible) {
+        this.mutex = mutex;
+        this.interruptible = interruptible;
+    }
 
-    /**
-     * Sets the mutex. See {@link AITask#getMutex()}.
-     *
-     * @param mutex The new mutex
-     */
-    void setMutex(int mutex);
+    @Override
+    public int getMutex() {
+        return mutex;
+    }
 
-    /**
-     * Returns if this task is interruptible. Is true for all Minecraft standard tasks.
-     *
-     * @return True if interruptible, false if not
-     */
-    boolean isInterruptible();
+    @Override
+    public void setMutex(int mutex) {
+        this.mutex = mutex;
+    }
+
+    @Override
+    public boolean isInterruptible() {
+        return interruptible;
+    }
+
+    public abstract void assignedTo(T owner);
+
+    public abstract boolean shouldUpdate();
+
+    public abstract boolean continueUpdating();
+
+    public abstract void start();
+
+    public abstract void update();
+
+    public abstract void reset();
 }

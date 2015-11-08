@@ -22,36 +22,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.entity.living;
+package org.spongepowered.api.entity.ai.creature;
 
-import org.spongepowered.api.entity.ai.AITask;
-import org.spongepowered.api.data.manipulator.mutable.entity.AgentData;
+public interface WanderAITask extends CreatureAITask {
 
-import java.util.Set;
+    double getSpeed();
 
-/**
- * An Agent represents a {@link Living} that has AI. In the future Sponge will
- * allow for custom AIs, but for now vanilla behavior can only be disabled.
- */
-public interface Agent extends Living {
+    WanderAITask setSpeed(double speed);
 
-    /**
-     * Gets a copy of the {@link AgentData} associated with this {@link Agent}.
-     *
-     * @return A copy of the agent data
-     */
-    default AgentData getAgentData() {
-        return get(AgentData.class).get();
-    }
+    int getExecutionChance();
 
-    /**
-     * Adds a {@link AITask} for this agent with a provided priority.
-     *
-     * @param priority The priority
-     * @param AITask The AITask
-     * @return This agent, for chaining
-     */
-    Agent addTask(int priority, AITask AITask);
-
-    <T extends AITask> Set<T> getTasks(Class<T> clazz);
+    WanderAITask setExecutionChance(int executionChance);
 }
