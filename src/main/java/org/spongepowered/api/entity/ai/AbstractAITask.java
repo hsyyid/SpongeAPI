@@ -24,9 +24,9 @@
  */
 package org.spongepowered.api.entity.ai;
 
-import org.spongepowered.api.entity.Entity;
+import org.spongepowered.api.entity.living.Agent;
 
-public abstract class AbstractAITask<T extends Entity> implements AITask {
+public abstract class AbstractAITask<T extends Agent> implements AITask {
     private int mutex;
     private boolean interruptible;
 

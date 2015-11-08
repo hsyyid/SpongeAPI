@@ -53,7 +53,7 @@ import org.spongepowered.api.entity.EntityType;
 import org.spongepowered.api.entity.Item;
 import org.spongepowered.api.entity.Transform;
 import org.spongepowered.api.entity.living.Ageable;
-import org.spongepowered.api.entity.living.Human;
+import org.spongepowered.api.entity.living.Humanoid;
 import org.spongepowered.api.entity.living.Living;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.entity.living.player.User;
@@ -1452,7 +1452,7 @@ public class SpongeEventFactory {
      * @param targetInventory The target inventory
      * @return A new target human change entity equipment event
      */
-    public static ChangeEntityEquipmentEvent.TargetHuman createChangeEntityEquipmentEventTargetHuman(Game game, Optional<ItemStackSnapshot> originalItemStack, Optional<Transaction<ItemStackSnapshot>> itemStack, Human targetEntity, Slot targetInventory) {
+    public static ChangeEntityEquipmentEvent.TargetHuman createChangeEntityEquipmentEventTargetHuman(Game game, Optional<ItemStackSnapshot> originalItemStack, Optional<Transaction<ItemStackSnapshot>> itemStack, Humanoid targetEntity, Slot targetInventory) {
         Map<String, Object> values = Maps.newHashMap();
         values.put("game", game);
         values.put("originalItemStack", originalItemStack);
@@ -1843,7 +1843,7 @@ public class SpongeEventFactory {
      * @param targetEntity The target entity
      * @return A new target human move displace entity event
      */
-    public static DisplaceEntityEvent.Move.TargetHuman createDisplaceEntityEventMoveTargetHuman(Game game, Transform<World> fromTransform, Transform<World> toTransform, Human targetEntity) {
+    public static DisplaceEntityEvent.Move.TargetHuman createDisplaceEntityEventMoveTargetHuman(Game game, Transform<World> fromTransform, Transform<World> toTransform, Humanoid targetEntity) {
         Map<String, Object> values = Maps.newHashMap();
         values.put("game", game);
         values.put("fromTransform", fromTransform);
@@ -1903,7 +1903,7 @@ public class SpongeEventFactory {
      * @param targetEntity The target entity
      * @return A new target human displace entity event
      */
-    public static DisplaceEntityEvent.TargetHuman createDisplaceEntityEventTargetHuman(Game game, Transform<World> fromTransform, Transform<World> toTransform, Human targetEntity) {
+    public static DisplaceEntityEvent.TargetHuman createDisplaceEntityEventTargetHuman(Game game, Transform<World> fromTransform, Transform<World> toTransform, Humanoid targetEntity) {
         Map<String, Object> values = Maps.newHashMap();
         values.put("game", game);
         values.put("fromTransform", fromTransform);
@@ -1992,7 +1992,7 @@ public class SpongeEventFactory {
      * @param keepsVelocity The keeps velocity
      * @return A new target human teleport displace entity event
      */
-    public static DisplaceEntityEvent.Teleport.TargetHuman createDisplaceEntityEventTeleportTargetHuman(Game game, Cause cause, Transform<World> fromTransform, Transform<World> toTransform, Human targetEntity, TeleporterAgent teleporterAgent, boolean keepsVelocity) {
+    public static DisplaceEntityEvent.Teleport.TargetHuman createDisplaceEntityEventTeleportTargetHuman(Game game, Cause cause, Transform<World> fromTransform, Transform<World> toTransform, Humanoid targetEntity, TeleporterAgent teleporterAgent, boolean keepsVelocity) {
         Map<String, Object> values = Maps.newHashMap();
         values.put("game", game);
         values.put("cause", cause);
@@ -2126,7 +2126,7 @@ public class SpongeEventFactory {
      * @param targetEntity The target entity
      * @return A new target human harvest entity event
      */
-    public static HarvestEntityEvent.TargetHuman createHarvestEntityEventTargetHuman(Game game, Cause cause, int originalExperience, int experience, Human targetEntity) {
+    public static HarvestEntityEvent.TargetHuman createHarvestEntityEventTargetHuman(Game game, Cause cause, int originalExperience, int experience, Humanoid targetEntity) {
         Map<String, Object> values = Maps.newHashMap();
         values.put("game", game);
         values.put("cause", cause);
@@ -2550,7 +2550,7 @@ public class SpongeEventFactory {
      * @param targetEntity The target entity
      * @return A new target human change game mode event
      */
-    public static ChangeGameModeEvent.TargetHuman createChangeGameModeEventTargetHuman(Game game, Cause cause, GameMode originalGameMode, GameMode gameMode, Human targetEntity) {
+    public static ChangeGameModeEvent.TargetHuman createChangeGameModeEventTargetHuman(Game game, Cause cause, GameMode originalGameMode, GameMode gameMode, Humanoid targetEntity) {
         Map<String, Object> values = Maps.newHashMap();
         values.put("game", game);
         values.put("cause", cause);
@@ -2614,7 +2614,7 @@ public class SpongeEventFactory {
      * @param targetEntity The target entity
      * @return A new target human change level event
      */
-    public static ChangeLevelEvent.TargetHuman createChangeLevelEventTargetHuman(Game game, Cause cause, int originalLevel, int level, Human targetEntity) {
+    public static ChangeLevelEvent.TargetHuman createChangeLevelEventTargetHuman(Game game, Cause cause, int originalLevel, int level, Humanoid targetEntity) {
         Map<String, Object> values = Maps.newHashMap();
         values.put("game", game);
         values.put("cause", cause);
@@ -2655,7 +2655,7 @@ public class SpongeEventFactory {
      * @param targetEntity The target entity
      * @return A new target human event
      */
-    public static TargetHumanEvent createTargetHumanEvent(Game game, Human targetEntity) {
+    public static TargetHumanEvent createTargetHumanEvent(Game game, Humanoid targetEntity) {
         Map<String, Object> values = Maps.newHashMap();
         values.put("game", game);
         values.put("targetEntity", targetEntity);

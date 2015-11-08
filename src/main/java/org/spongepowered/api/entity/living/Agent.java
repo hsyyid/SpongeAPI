@@ -53,5 +53,10 @@ public interface Agent extends Living {
      */
     Agent addTask(int priority, AITask AITask);
 
+    Agent removeTask(AITask task);
+
+    // TODO Types, replace classes
+    Agent removeTasks(Class<? extends AITask> clazz);
+
     <T extends AITask> Set<T> getTasks(Class<T> clazz);
 }
