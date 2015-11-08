@@ -22,8 +22,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.entity.ai.creature;
+package org.spongepowered.api.entity.ai.creature.horse;
 
+import org.spongepowered.api.entity.ai.creature.CreatureAITask;
 import org.spongepowered.api.entity.living.animal.Horse;
 
 public interface RunAroundLikeCrazyAITask extends CreatureAITask {
