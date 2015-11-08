@@ -92,8 +92,8 @@ public interface WorldGenerator {
     void setBaseGenerationPopulator(GenerationPopulator generator);
 
     /**
-     * Gets a mutable list of {@link GenerationPopulator}s. These populators work
-     * strictly on a single chunk. They will be executed directly after the
+     * Gets a mutable list of {@link GenerationPopulator}s. These populators
+     * work strictly on a single chunk. They will be executed directly after the
      * {@link BiomeGenerationSettings#getGroundCoverLayers() biome ground cover
      * layers} and the {@link BiomeGenerationSettings#getGenerationPopulators()
      * biome generator populators} have been called. These generator populators
@@ -107,6 +107,13 @@ public interface WorldGenerator {
      */
     List<GenerationPopulator> getGenerationPopulators();
 
+    /**
+     * Gets an immutable list of {@link GenerationPopulator}s which match the
+     * given class type.
+     * 
+     * @param type The type to match
+     * @return The genpops which match the type
+     */
     List<GenerationPopulator> getGenerationPopulators(Class<? extends GenerationPopulator> type);
 
     /**
@@ -118,6 +125,13 @@ public interface WorldGenerator {
      */
     List<Populator> getPopulators();
 
+    /**
+     * Gets an immutable list of {@link Populator}s which match the given class
+     * type.
+     * 
+     * @param type The type to match
+     * @return The populators which match the type
+     */
     List<Populator> getPopulators(Class<? extends Populator> type);
 
     /**

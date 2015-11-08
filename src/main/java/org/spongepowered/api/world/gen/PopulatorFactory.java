@@ -62,13 +62,6 @@ public interface PopulatorFactory {
     BigMushroom.Builder createBigMushroomPopulator();
 
     /**
-     * Creates a new {@link Mushroom} populator builder.
-     * 
-     * @return A new builder instance
-     */
-    Mushroom.Builder createMushroomPopulator();
-
-    /**
      * Creates a new {@link BlockBlob} populator builder.
      * 
      * @return A new builder instance
@@ -158,6 +151,13 @@ public interface PopulatorFactory {
      * @return A new builder instance
      */
     Melon.Builder createMelonPopulator();
+
+    /**
+     * Creates a new {@link Mushroom} populator builder.
+     * 
+     * @return A new builder instance
+     */
+    Mushroom.Builder createMushroomPopulator();
 
     /**
      * Creates a new {@link Ore} populator builder.

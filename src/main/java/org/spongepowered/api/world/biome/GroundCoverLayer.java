@@ -69,14 +69,20 @@ public class GroundCoverLayer {
     }
 
     /**
-     * Sets the {@link BlockState} for this layer.
+     * Sets the function which is used to determine the blockstate to place at
+     * each layer. The input to the function is a noise value.
      * 
-     * @param block The block state
+     * @param block The block state function
      */
     public void setBlockState(Function<Double, BlockState> block) {
         this.block = checkNotNull(block, "block");
     }
 
+    /**
+     * Sets the {@link BlockState} for this layer.
+     * 
+     * @param block The block state
+     */
     public void setBlockState(BlockState block) {
         this.block = Functional.constant(checkNotNull(block, "block"));
     }
@@ -92,7 +98,7 @@ public class GroundCoverLayer {
     }
 
     /**
-     * Sets the {@link VariableAmount} representing the depth of this layer. The
+     * Sets the {@link SeededVariableAmount} representing the depth of this layer. The
      * variable amount will be seeded with the stone noise at generation time.
      * 
      * @param depth The new variable amount
@@ -101,12 +107,17 @@ public class GroundCoverLayer {
         this.depth = checkNotNull(depth, "depth");
     }
 
+    /**
+     * Sets the {@link VariableAmount} representing the depth of this layer.
+     * 
+     * @param depth The new variable amount
+     */
     public void setDepth(VariableAmount depth) {
         this.depth = SeededVariableAmount.wrapped(checkNotNull(depth, "depth"));
     }
 
     /**
-     * Sets the depth of this layer.
+     * Sets the depth of this layer to the given constant value.
      * 
      * @param depth The new depth
      */
