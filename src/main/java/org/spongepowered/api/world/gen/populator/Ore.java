@@ -26,7 +26,7 @@ package org.spongepowered.api.world.gen.populator;
 
 import com.google.common.base.Predicate;
 import org.spongepowered.api.block.BlockState;
-import org.spongepowered.api.util.VariableAmount;
+import org.spongepowered.api.util.weighted.VariableAmount;
 import org.spongepowered.api.world.gen.Populator;
 
 /**

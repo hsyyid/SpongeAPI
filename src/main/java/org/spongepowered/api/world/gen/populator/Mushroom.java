@@ -24,8 +24,8 @@
  */
 package org.spongepowered.api.world.gen.populator;
 
-import org.spongepowered.api.util.VariableAmount;
 import org.spongepowered.api.util.weighted.ChanceTable;
+import org.spongepowered.api.util.weighted.VariableAmount;
 import org.spongepowered.api.world.gen.Populator;
 import org.spongepowered.api.world.gen.type.MushroomType;
 import org.spongepowered.api.world.gen.type.MushroomTypes;

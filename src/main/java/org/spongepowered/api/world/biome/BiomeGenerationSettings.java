@@ -24,7 +24,7 @@
  */
 package org.spongepowered.api.world.biome;
 
-import org.spongepowered.api.world.gen.GeneratorPopulator;
+import org.spongepowered.api.world.gen.GenerationPopulator;
 import org.spongepowered.api.world.gen.Populator;
 
 import java.util.List;
@@ -72,7 +72,7 @@ public interface BiomeGenerationSettings {
     List<GroundCoverLayer> getGroundCoverLayers();
 
     /**
-     * Gets a mutable list of {@link GeneratorPopulator}s. These populators work
+     * Gets a mutable list of {@link GenerationPopulator}s. These populators work
      * strictly on a single chunk. They will be executed directly after the
      * {@link #getGroundCoverLayers() ground cover layers} are applied. These
      * generator populators are typically used to generate large terrain
@@ -80,9 +80,9 @@ public interface BiomeGenerationSettings {
      * 
      * @return The generator populators
      */
-    List<GeneratorPopulator> getGeneratorPopulators();
+    List<GenerationPopulator> getGenerationPopulators();
     
-    List<GeneratorPopulator> getGeneratorPopulators(Class<? extends GeneratorPopulator> type);
+    List<GenerationPopulator> getGenerationPopulators(Class<? extends GenerationPopulator> type);
 
     /**
      * Returns a mutable list of {@link Populator}s specific to this biome.

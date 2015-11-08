@@ -50,13 +50,13 @@ import java.util.List;
  * 
  * <ol><strong>The generation phase:</strong>
  *   <li>Create a BlockBufferrepresenting the chunk's area</li>
- *   <li>Call the {@link #getBaseGeneratorPopulator() base GeneratorPopulator}
+ *   <li>Call the {@link #getBaseGenerationPopulator() base GenerationPopulator}
  *     from the WorldGenerator to create the base terrain shape.</li>
  *   <li>Call each of the
- *     {@link BiomeGenerationSettings#getGeneratorPopulators()
- *     GeneratorPopulators} registered to the BiomeType (or from an override if
+ *     {@link BiomeGenerationSettings#getGenerationPopulators()
+ *     GenerationPopulators} registered to the BiomeType (or from an override if
  *     found).</li>
- *   <li>Call each of the {@link #getGeneratorPopulators() GeneratorPopulators}
+ *   <li>Call each of the {@link #getGenerationPopulators() GenerationPopulators}
  *     registered to the WorldGenerator.</li>
  *   <li>Build thefinal Chunk object from the contents of the BlockBuffer.</li>
  * </ol>
@@ -75,39 +75,39 @@ import java.util.List;
 public interface WorldGenerator {
 
     /**
-     * Gets the main {@link GeneratorPopulator}. This generator populator is
+     * Gets the main {@link GenerationPopulator}. This generator populator is
      * responsible for generating the base terrain of the chunk.
      *
-     * @return The {@link GeneratorPopulator}.
-     * @see #setBaseGeneratorPopulator(GeneratorPopulator)
+     * @return The {@link GenerationPopulator}.
+     * @see #setBaseGenerationPopulator(GenerationPopulator)
      */
-    GeneratorPopulator getBaseGeneratorPopulator();
+    GenerationPopulator getBaseGenerationPopulator();
 
     /**
-     * Sets the {@link GeneratorPopulator}. This generator populator is
+     * Sets the {@link GenerationPopulator}. This generator populator is
      * responsible for generating the base terrain of the chunk.
      *
      * @param generator The generator.
      */
-    void setBaseGeneratorPopulator(GeneratorPopulator generator);
+    void setBaseGenerationPopulator(GenerationPopulator generator);
 
     /**
-     * Gets a mutable list of {@link GeneratorPopulator}s. These populators work
+     * Gets a mutable list of {@link GenerationPopulator}s. These populators work
      * strictly on a single chunk. They will be executed directly after the
      * {@link BiomeGenerationSettings#getGroundCoverLayers() biome ground cover
-     * layers} and the {@link BiomeGenerationSettings#getGeneratorPopulators()
+     * layers} and the {@link BiomeGenerationSettings#getGenerationPopulators()
      * biome generator populators} have been called. These generator populators
      * are typically used to generate large terrain features, like caves and
      * ravines.
      *
-     * <p>This list does not include {@link #getBaseGeneratorPopulator() the
+     * <p>This list does not include {@link #getBaseGenerationPopulator() the
      * base generator}.</p>
      *
      * @return The generator populators
      */
-    List<GeneratorPopulator> getGeneratorPopulators();
+    List<GenerationPopulator> getGenerationPopulators();
 
-    List<GeneratorPopulator> getGeneratorPopulators(Class<? extends GeneratorPopulator> type);
+    List<GenerationPopulator> getGenerationPopulators(Class<? extends GenerationPopulator> type);
 
     /**
      * Gets a mutable list of {@link Populator}s which are applied globally (in

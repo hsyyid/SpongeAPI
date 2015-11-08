@@ -56,7 +56,7 @@ public abstract class RandomObjectTable<T> implements Collection<WeightedTableEn
 
     @Override
     public boolean addAll(Collection<? extends WeightedTableEntry<T>> c) {
-        return this.entries.retainAll(c);
+        return this.entries.addAll(c);
     }
 
     @Override

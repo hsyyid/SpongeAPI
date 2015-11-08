@@ -28,8 +28,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.google.common.base.Objects;
 import org.spongepowered.api.block.BlockState;
-import org.spongepowered.api.util.SeededVariableAmount;
-import org.spongepowered.api.util.VariableAmount;
+import org.spongepowered.api.util.weighted.SeededValue;
+import org.spongepowered.api.util.weighted.SeededVariableAmount;
+import org.spongepowered.api.util.weighted.VariableAmount;
 
 /**
  * Represents a layer of BlockStates specific to a biome which may be placed in
@@ -37,7 +38,7 @@ import org.spongepowered.api.util.VariableAmount;
  */
 public class GroundCoverLayer {
 
-    private BlockState block;
+    private SeededValue<BlockState, Double> block;
     private SeededVariableAmount<Double> depth;
 
     /**
@@ -47,6 +48,10 @@ public class GroundCoverLayer {
      * @param depth The depth of the layer
      */
     public GroundCoverLayer(BlockState block, SeededVariableAmount<Double> depth) {
+        this(SeededValue.constant(block), depth);
+    }
+
+    public GroundCoverLayer(SeededValue<BlockState, Double> block, SeededVariableAmount<Double> depth) {
         this.block = checkNotNull(block, "block");
         this.depth = checkNotNull(depth, "depth");
     }
@@ -56,7 +61,7 @@ public class GroundCoverLayer {
      * 
      * @return The block state
      */
-    public BlockState getBlockState() {
+    public SeededValue<BlockState, Double> getBlockState() {
         return this.block;
     }
 
@@ -65,8 +70,12 @@ public class GroundCoverLayer {
      * 
      * @param block The block state
      */
-    public void setBlockState(BlockState block) {
+    public void setBlockState(SeededValue<BlockState, Double> block) {
         this.block = checkNotNull(block, "block");
+    }
+
+    public void setBlockState(BlockState block) {
+        this.block = SeededValue.constant(checkNotNull(block, "block"));
     }
 
     /**
@@ -87,6 +96,10 @@ public class GroundCoverLayer {
      */
     public void setDepth(SeededVariableAmount<Double> depth) {
         this.depth = checkNotNull(depth, "depth");
+    }
+
+    public void setDepth(VariableAmount depth) {
+        this.depth = SeededVariableAmount.wrapped(checkNotNull(depth, "depth"));
     }
 
     /**

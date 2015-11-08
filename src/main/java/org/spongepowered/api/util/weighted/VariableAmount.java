@@ -22,8 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.util;
-
+package org.spongepowered.api.util.weighted;
 
 import com.flowpowered.math.GenericMath;
 import com.google.common.base.Objects;
@@ -152,6 +151,9 @@ public abstract class VariableAmount implements DataSerializable {
      * @return A variable amount representation
      */
     public static VariableAmount baseWithOptionalAddition(double base, double addition, double chance) {
+        if(base == -999) {
+            return null;
+        }
         return new OptionalAmount(base, chance, baseWithRandomAddition(base, addition));
     }
 
@@ -237,7 +239,7 @@ public abstract class VariableAmount implements DataSerializable {
         @Override
         public DataContainer toContainer() {
             return new MemoryDataContainer()
-                .set(Queries.VARIABLE_AMOUNT, this.amount);
+                    .set(Queries.VARIABLE_AMOUNT, this.amount);
         }
     }
 
@@ -290,8 +292,8 @@ public abstract class VariableAmount implements DataSerializable {
         @Override
         public DataContainer toContainer() {
             return new MemoryDataContainer()
-                .set(Queries.VARIABLE_BASE, this.base)
-                .set(Queries.VARIABLE_VARIANCE, this.variance);
+                    .set(Queries.VARIABLE_BASE, this.base)
+                    .set(Queries.VARIABLE_VARIANCE, this.variance);
         }
 
     }
@@ -313,7 +315,7 @@ public abstract class VariableAmount implements DataSerializable {
 
         @Override
         public double getAmount(Random rand) {
-            return this.base + this.addition.getAmount(rand);
+            return this.base + (rand.nextDouble() * this.addition.getAmount(rand));
         }
 
         @Override
@@ -344,8 +346,8 @@ public abstract class VariableAmount implements DataSerializable {
         @Override
         public DataContainer toContainer() {
             return new MemoryDataContainer()
-                .set(DataQuery.of("Base"), this.base)
-                .set(DataQuery.of("Variance"), this.addition);
+                    .set(DataQuery.of("Base"), this.base)
+                    .set(DataQuery.of("Variance"), this.addition);
         }
     }
 
@@ -361,6 +363,7 @@ public abstract class VariableAmount implements DataSerializable {
         private VariableAmount inner;
 
         private OptionalAmount(double base, double chance, VariableAmount inner) {
+            this.base = base;
             this.inner = inner;
             this.chance = chance;
         }
@@ -371,14 +374,6 @@ public abstract class VariableAmount implements DataSerializable {
                 return this.inner.getAmount(rand);
             }
             return this.base;
-        }
-
-        @Override
-        public int getFlooredAmount(Random rand) {
-            if (rand.nextDouble() < this.chance) {
-                return this.inner.getFlooredAmount(rand);
-            }
-            return GenericMath.floor(this.base);
         }
 
         @Override
@@ -410,9 +405,9 @@ public abstract class VariableAmount implements DataSerializable {
         @Override
         public DataContainer toContainer() {
             return new MemoryDataContainer()
-                .set(Queries.VARIABLE_CHANCE, this.chance)
-                .set(Queries.VARIABLE_BASE, this.base)
-                .set(Queries.VARIABLE_VARIANCE, this.inner);
+                    .set(Queries.VARIABLE_CHANCE, this.chance)
+                    .set(Queries.VARIABLE_BASE, this.base)
+                    .set(Queries.VARIABLE_VARIANCE, this.inner);
         }
     }
 

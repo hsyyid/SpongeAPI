@@ -24,13 +24,15 @@
  */
 package org.spongepowered.api.util.weighted;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public class WeightedObject<T> extends WeightedTableEntry<T> {
 
     private final T object;
 
     public WeightedObject(T obj, double weight) {
         super(weight);
-        this.object = obj;
+        this.object = checkNotNull(obj);
     }
 
     public T get() {

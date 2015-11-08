@@ -24,7 +24,7 @@
  */
 package org.spongepowered.api.world.gen.populator;
 
-import org.spongepowered.api.util.VariableAmount;
+import org.spongepowered.api.util.weighted.VariableAmount;
 import org.spongepowered.api.world.gen.Populator;
 
 /**
@@ -66,6 +66,29 @@ public interface Cactus extends Populator {
     }
 
     /**
+     * Gets the height of the cacti.
+     * 
+     * @return The height
+     */
+    VariableAmount getHeight();
+
+    /**
+     * Sets the height of the cacti.
+     * 
+     * @param count The new height
+     */
+    void setHeight(VariableAmount height);
+
+    /**
+     * Sets the height of the cacti.
+     * 
+     * @param count The new height
+     */
+    default void setHeight(int count) {
+        setHeight(VariableAmount.fixed(count));
+    }
+
+    /**
      * A builder for constructing {@link Cactus} populators.
      */
     interface Builder {
@@ -94,6 +117,24 @@ public interface Cactus extends Populator {
          */
         default Builder cactiPerChunk(int count) {
             return cactiPerChunk(VariableAmount.fixed(count));
+        }
+
+        /**
+         * Sets the height of the cacti.
+         * 
+         * @param count The new height
+         * @return This builder, for chaining
+         */
+        Builder height(VariableAmount height);
+
+        /**
+         * Sets the height of the cacti.
+         * 
+         * @param count The new height
+         * @return This builder, for chaining
+         */
+        default Builder height(int height) {
+            return height(VariableAmount.fixed(height));
         }
 
         /**

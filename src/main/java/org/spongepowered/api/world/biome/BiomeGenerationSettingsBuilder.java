@@ -24,7 +24,7 @@
  */
 package org.spongepowered.api.world.biome;
 
-import org.spongepowered.api.world.gen.GeneratorPopulator;
+import org.spongepowered.api.world.gen.GenerationPopulator;
 import org.spongepowered.api.world.gen.Populator;
 
 import java.util.Collection;
@@ -67,20 +67,20 @@ public interface BiomeGenerationSettingsBuilder {
     BiomeGenerationSettingsBuilder groundCoverLayers(Collection<GroundCoverLayer> layers);
 
     /**
-     * Sets the {@link GeneratorPopulator}s for the biome.
+     * Sets the {@link GenerationPopulator}s for the biome.
      * 
      * @param genpops The generator populators
      * @return This builder, for chaining
      */
-    BiomeGenerationSettingsBuilder generatorPopulators(GeneratorPopulator... genpops);
+    BiomeGenerationSettingsBuilder generationPopulators(GenerationPopulator... genpops);
 
     /**
-     * Sets the {@link GeneratorPopulator}s for the biome.
+     * Sets the {@link GenerationPopulator}s for the biome.
      * 
      * @param genpops The generator populators
      * @return This builder, for chaining
      */
-    BiomeGenerationSettingsBuilder generatorPopulators(Collection<GeneratorPopulator> genpops);
+    BiomeGenerationSettingsBuilder generationPopulators(Collection<GenerationPopulator> genpops);
 
     /**
      * Sets the {@link Populator}s for the biome.

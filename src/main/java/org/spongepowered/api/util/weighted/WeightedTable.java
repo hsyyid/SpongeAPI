@@ -54,7 +54,7 @@ public class WeightedTable<T> extends RandomObjectTable<T> {
 
     @Override
     public boolean addAll(Collection<? extends WeightedTableEntry<T>> c) {
-        boolean added = super.retainAll(c);
+        boolean added = super.addAll(c);
         if (added) {
             recalculateWeight();
         }

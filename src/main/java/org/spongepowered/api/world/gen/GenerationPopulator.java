@@ -32,10 +32,10 @@ import org.spongepowered.api.world.extent.MutableBlockVolume;
  * A populator which acts directly on the {@link MutableBlockVolume} during the
  * generation phase rather than the population phase.
  * 
- * <p>Unlike a normal {@link Populator}, a {@link GeneratorPopulator} is
+ * <p>Unlike a normal {@link Populator}, a {@link GenerationPopulator} is
  * restricted to the chunk that is currently being generated.</p>
  */
-public interface GeneratorPopulator {
+public interface GenerationPopulator {
 
     /**
      * Operates on a {@link MutableBlockVolume} either forming the base terrain
