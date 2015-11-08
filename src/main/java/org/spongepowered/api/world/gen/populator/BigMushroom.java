@@ -27,6 +27,7 @@ package org.spongepowered.api.world.gen.populator;
 import org.spongepowered.api.util.VariableAmount;
 import org.spongepowered.api.util.weighted.WeightedTable;
 import org.spongepowered.api.world.gen.Populator;
+import org.spongepowered.api.world.gen.PopulatorObject;
 import org.spongepowered.api.world.gen.type.MushroomType;
 import org.spongepowered.api.world.gen.type.MushroomTypes;
 
@@ -43,7 +44,7 @@ public interface BigMushroom extends Populator {
      * 
      * @return The weighted list
      */
-    WeightedTable<MushroomType> getType();
+    WeightedTable<PopulatorObject> getType();
 
     /**
      * Gets a representation of the amount of mushrooms which will be attempted
@@ -95,7 +96,7 @@ public interface BigMushroom extends Populator {
          * @param types The weighted types
          * @return This builder, for chaining
          */
-        Builder types(WeightedTable<MushroomType> types);
+        Builder types(WeightedTable<PopulatorObject> types);
 
         /**
          * Adds the weighted {@link MushroomType} to the list of available types
@@ -104,7 +105,7 @@ public interface BigMushroom extends Populator {
          * @param weight The weight of the new type
          * @return This builder, for chaining
          */
-        Builder type(MushroomType type, double weight);
+        Builder type(PopulatorObject type, double weight);
 
         /**
          * Sets the number of mushrooms which will be attempted to be spawned.

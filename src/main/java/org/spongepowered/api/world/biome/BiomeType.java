@@ -47,11 +47,4 @@ public interface BiomeType extends CatalogType {
      */
     double getHumidity();
 
-    /**
-     * Gets the default generation settings for this biome.
-     * 
-     * @return The generation settings
-     */
-    BiomeGenerationSettings getGenerationSettings();
-
 }

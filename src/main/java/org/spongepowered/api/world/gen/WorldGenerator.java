@@ -107,6 +107,8 @@ public interface WorldGenerator {
      */
     List<GeneratorPopulator> getGeneratorPopulators();
 
+    List<GeneratorPopulator> getGeneratorPopulators(Class<? extends GeneratorPopulator> type);
+
     /**
      * Gets a mutable list of {@link Populator}s which are applied globally (in
      * the whole world).
@@ -115,6 +117,8 @@ public interface WorldGenerator {
      * @return The populators
      */
     List<Populator> getPopulators();
+
+    List<Populator> getPopulators(Class<? extends Populator> type);
 
     /**
      * Gets the {@link BiomeGenerator} for this world generator.
@@ -131,22 +135,12 @@ public interface WorldGenerator {
     void setBiomeGenerator(BiomeGenerator biomeGenerator);
 
     /**
-     * Gets this world generator's override for the given {@link BiomeType} if
-     * it exists.
+     * Gets this world generator settings for the given {@link BiomeType}..
      *
      * @param type The biome type
-     * @return The overriding settings, if they exist
+     * @return The generation settings
      */
-    Optional<BiomeGenerationSettings> getBiomeOverride(BiomeType type);
-
-    /**
-     * Gets whether this world generator has an override specified for the given
-     * {@link BiomeType}.
-     *
-     * @param type The biome type
-     * @return Is overridden
-     */
-    boolean isBiomeOverriden(BiomeType type);
+    BiomeGenerationSettings getBiomeSettings(BiomeType type);
 
     /**
      * Sets the given {@link BiomeType} to be overriden with the given
@@ -155,6 +149,6 @@ public interface WorldGenerator {
      * @param type The biome type to override
      * @param settings The overriding settings
      */
-    void setBiomeOverride(BiomeType type, BiomeGenerationSettings settings);
+    void setBiomeSettings(BiomeType type, BiomeGenerationSettings settings);
 
 }

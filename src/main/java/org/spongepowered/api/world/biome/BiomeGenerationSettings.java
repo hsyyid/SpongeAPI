@@ -81,6 +81,8 @@ public interface BiomeGenerationSettings {
      * @return The generator populators
      */
     List<GeneratorPopulator> getGeneratorPopulators();
+    
+    List<GeneratorPopulator> getGeneratorPopulators(Class<? extends GeneratorPopulator> type);
 
     /**
      * Returns a mutable list of {@link Populator}s specific to this biome.
@@ -89,5 +91,7 @@ public interface BiomeGenerationSettings {
      * @return The populators
      */
     List<Populator> getPopulators();
+    
+    List<Populator> getPopulators(Class<? extends Populator> type);
 
 }

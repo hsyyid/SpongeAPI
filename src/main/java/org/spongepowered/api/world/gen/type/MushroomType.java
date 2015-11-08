@@ -36,35 +36,19 @@ import org.spongepowered.api.world.gen.PopulatorObject;
 public interface MushroomType extends CatalogType {
 
     /**
-     * Gets the {@link PopulatorObject} which is used to generate this mushroom
-     * into the world.
+     * Gets the {@link PopulatorObject} which is used to generate the large
+     * variant of this mushroom into the world.
      * 
      * @return The populator object
      */
     PopulatorObject getPopulatorObject();
 
     /**
-     * Sets the {@link PopulatorObject} which is used to generate this mushroom
-     * into the world.
+     * Sets the {@link PopulatorObject} which is used to generate the large
+     * variant of this mushroom into the world.
      * 
      * @param object The new populator object
      */
     void setPopulatorObject(PopulatorObject object);
-
-    /**
-     * Gets the {@link PopulatorObject} which is used to generate the larger
-     * variant of this mushroom into the world.
-     * 
-     * @return The large populator object
-     */
-    PopulatorObject getLargePopulatorObject();
-
-    /**
-     * Sets the {@link PopulatorObject} which is used to generate the larger
-     * variant of this mushroom into the world.
-     * 
-     * @param object The new large populator object
-     */
-    void setLargePopulatorObject(PopulatorObject object);
 
 }

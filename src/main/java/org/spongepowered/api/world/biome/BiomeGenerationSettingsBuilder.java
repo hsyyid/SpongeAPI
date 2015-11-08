@@ -106,12 +106,12 @@ public interface BiomeGenerationSettingsBuilder {
     BiomeGenerationSettingsBuilder reset();
 
     /**
-     * Resets this builder to the settings of the given {@link BiomeType}.
+     * Resets this builder to the settings of the given {@link BiomeGenerationSettings}.
      * 
-     * @param type The biome type to match
+     * @param type The settings to match
      * @return This builder, for chaining
      */
-    BiomeGenerationSettingsBuilder reset(BiomeType type);
+    BiomeGenerationSettingsBuilder reset(BiomeGenerationSettings type);
 
     /**
      * Builds the {@link BiomeGenerationSettings} specified by this builder.
