@@ -22,16 +22,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.entity.ai.creature.horse;
+package org.spongepowered.api.entity.ai.bound;
 
-import org.spongepowered.api.entity.ai.creature.CreatureAITask;
-import org.spongepowered.api.entity.living.animal.Horse;
+import org.spongepowered.api.entity.ai.AITask;
+import org.spongepowered.api.entity.living.Agent;
 
-public interface RunAroundLikeCrazyAITask extends CreatureAITask {
-    @Override
-    Horse getOwner();
-
-    double getSpeed();
-
-    RunAroundLikeCrazyAITask setSpeed(double speed);
+/**
+ * An {@link AITask} where the owner is always known.
+ *
+ * @param <T> The owner type
+ */
+public interface BoundAITask<T extends Agent> extends AITask {
+    T getOwner();
 }

@@ -37,6 +37,7 @@ import org.spongepowered.api.effect.particle.ParticleEffectBuilder;
 import org.spongepowered.api.effect.particle.ParticleType;
 import org.spongepowered.api.entity.EntitySnapshotBuilder;
 import org.spongepowered.api.entity.EntityType;
+import org.spongepowered.api.entity.ai.bound.AIFactory;
 import org.spongepowered.api.event.cause.entity.damage.source.BlockDamageSourceBuilder;
 import org.spongepowered.api.event.cause.entity.damage.source.DamageSourceBuilder;
 import org.spongepowered.api.event.cause.entity.damage.source.EntityDamageSourceBuilder;
@@ -346,6 +347,8 @@ public interface GameRegistry {
      * @return The populator factory
      */
     PopulatorFactory getPopulatorFactory();
+
+    AIFactory getAIFactory();
 
     /**
      * Gets the {@link ExtentBufferFactory} for creating buffers
