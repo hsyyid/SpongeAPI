@@ -134,8 +134,6 @@ public class Functional {
     }
 
     public static <V, S> Function<S, V> constant(V value) {
-        return (seed) -> {
-            return value;
-        };
+        return (seed) -> value;
     }
 }

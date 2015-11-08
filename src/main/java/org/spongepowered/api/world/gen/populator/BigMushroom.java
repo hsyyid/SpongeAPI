@@ -38,9 +38,8 @@ import org.spongepowered.api.world.gen.type.MushroomTypes;
 public interface BigMushroom extends Populator {
 
     /**
-     * Gets a mutable {@link WeightedCollection} of possible mushroom types to
-     * spawn. If the list is empty then a {@link MushroomType} will be selected
-     * at random from all available {@link MushroomTypes}.
+     * Gets a mutable {@link WeightedTable} of possible mushroom types to
+     * spawn.
      * 
      * @return The weighted list
      */
@@ -90,7 +89,7 @@ public interface BigMushroom extends Populator {
     interface Builder {
 
         /**
-         * Sets the weighted {@link MushroomType}s to select from during
+         * Sets the weighted {@link PopulatorObject}s to select from during
          * generation.
          * 
          * @param types The weighted types
@@ -99,7 +98,8 @@ public interface BigMushroom extends Populator {
         Builder types(WeightedTable<PopulatorObject> types);
 
         /**
-         * Adds the weighted {@link MushroomType} to the list of available types
+         * Adds the weighted {@link PopulatorObject} to the list of available
+         * types.
          * 
          * @param type The new weighted type
          * @param weight The weight of the new type

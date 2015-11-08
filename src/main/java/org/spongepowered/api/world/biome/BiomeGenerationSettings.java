@@ -75,10 +75,10 @@ public interface BiomeGenerationSettings {
      * Gets a mutable list of {@link GenerationPopulator}s. These populators
      * work strictly on a single chunk. They will be executed directly after the
      * {@link #getGroundCoverLayers() ground cover layers} are applied. These
-     * generator populators are typically used to generate large terrain
+     * generation populators are typically used to generate large terrain
      * features, like caves and ravines.
      * 
-     * @return The generator populators
+     * @return The generation populators
      */
     List<GenerationPopulator> getGenerationPopulators();
 
@@ -86,7 +86,8 @@ public interface BiomeGenerationSettings {
      * Gets an immutable list of {@link GenerationPopulator}s matching the given
      * class type.
      * 
-     * @return The generator populators
+     * @param type the generation populator type to return
+     * @return The generation populators
      */
     List<GenerationPopulator> getGenerationPopulators(Class<? extends GenerationPopulator> type);
 
@@ -102,6 +103,7 @@ public interface BiomeGenerationSettings {
      * Returns an immutable list of {@link Populator}s specific to this biome
      * which match the given class type.
      * 
+     * @param type the populator type to return
      * @return The populators
      */
     List<Populator> getPopulators(Class<? extends Populator> type);

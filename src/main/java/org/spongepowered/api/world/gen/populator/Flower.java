@@ -120,7 +120,7 @@ public interface Flower extends Populator {
         /**
          * Adds the plant type to the list of types to spawn with the given weight.
          * 
-         * @param types The plant type to spawn
+         * @param type The plant type to spawn
          * @param weight The weight of the type
          * @return This builder, for chaining
          */

@@ -184,7 +184,7 @@ public abstract class RandomObjectTable<T> implements Collection<TableEntry<T>> 
     }
 
     @Override
-    public <T> T[] toArray(T[] a) {
+    public <R> R[] toArray(R[] a) {
         return this.entries.toArray(a);
     }
 }

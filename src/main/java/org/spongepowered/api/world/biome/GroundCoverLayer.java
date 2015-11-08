@@ -26,7 +26,6 @@ package org.spongepowered.api.world.biome;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import com.google.common.base.Functions;
 import com.google.common.base.Objects;
 import org.spongepowered.api.block.BlockState;
 import org.spongepowered.api.util.Functional;
@@ -54,6 +53,13 @@ public class GroundCoverLayer {
         this(Functional.constant(block), depth);
     }
 
+    /**
+     * Creates a new {@link GroundCoverLayer}.
+     * 
+     * @param block The function which is used to determine the blockstate to
+     *        place at this layer
+     * @param depth The depth of the layer
+     */
     public GroundCoverLayer(Function<Double, BlockState> block, SeededVariableAmount<Double> depth) {
         this.block = checkNotNull(block, "block");
         this.depth = checkNotNull(depth, "depth");
@@ -70,7 +76,7 @@ public class GroundCoverLayer {
 
     /**
      * Sets the function which is used to determine the blockstate to place at
-     * each layer. The input to the function is a noise value.
+     * this layer. The input to the function is a noise value.
      * 
      * @param block The block state function
      */
@@ -98,8 +104,9 @@ public class GroundCoverLayer {
     }
 
     /**
-     * Sets the {@link SeededVariableAmount} representing the depth of this layer. The
-     * variable amount will be seeded with the stone noise at generation time.
+     * Sets the {@link SeededVariableAmount} representing the depth of this
+     * layer. The variable amount will be seeded with the stone noise at
+     * generation time.
      * 
      * @param depth The new variable amount
      */

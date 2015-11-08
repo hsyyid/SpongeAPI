@@ -153,7 +153,7 @@ public abstract class ConditionalRandomObjectTable<T, C> implements Collection<T
     }
 
     @Override
-    public <T> T[] toArray(T[] a) {
+    public <R> R[] toArray(R[] a) {
         return this.entries.toArray(a);
     }
     

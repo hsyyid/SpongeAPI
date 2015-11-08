@@ -75,7 +75,7 @@ public interface Cactus extends Populator {
     /**
      * Sets the height of the cacti.
      * 
-     * @param count The new height
+     * @param height The new height
      */
     void setHeight(VariableAmount height);
 

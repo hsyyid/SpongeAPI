@@ -24,7 +24,6 @@
  */
 package org.spongepowered.api.world.gen;
 
-import com.google.common.base.Optional;
 import org.spongepowered.api.world.biome.BiomeGenerationSettings;
 import org.spongepowered.api.world.biome.BiomeType;
 

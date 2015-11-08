@@ -104,8 +104,8 @@ public interface Shrub extends Populator {
         /**
          * Adds the weighted {@link ShrubType}s to the list of types.
          * 
-         * @param types The new shrub type
-         * @param weight The weight of the typez
+         * @param type The new shrub type
+         * @param weight The weight of the type
          * @return This builder, for chaining
          */
         Builder type(ShrubType type, int weight);
