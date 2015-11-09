@@ -27,6 +27,7 @@ package org.spongepowered.api.world.gen;
 import org.spongepowered.api.world.gen.populator.BigMushroom;
 import org.spongepowered.api.world.gen.populator.BlockBlob;
 import org.spongepowered.api.world.gen.populator.Cactus;
+import org.spongepowered.api.world.gen.populator.DeadBush;
 import org.spongepowered.api.world.gen.populator.DesertWell;
 import org.spongepowered.api.world.gen.populator.DoublePlant;
 import org.spongepowered.api.world.gen.populator.Dungeon;
@@ -81,6 +82,13 @@ public interface PopulatorFactory {
      * @return A new builder instance
      */
     DesertWell.Builder createDesertWellPopulator();
+
+    /**
+     * Creates a new {@link DeadBush} populator builder.
+     * 
+     * @return A new builder instance
+     */
+    DeadBush.Builder createDeadBushPopulator();
 
     /**
      * Creates a new {@link DoublePlant} populator builder.

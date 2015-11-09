@@ -25,6 +25,7 @@
 package org.spongepowered.api.world.gen.populator;
 
 import org.spongepowered.api.block.BlockState;
+import org.spongepowered.api.util.weighted.VariableAmount;
 import org.spongepowered.api.world.gen.Populator;
 
 /**
@@ -62,6 +63,20 @@ public interface Lake extends Populator {
      * @param p The new lake spawn probability
      */
     void setLakeProbability(double p);
+    
+    /**
+     * Gets the height that this lake will be spawned at.
+     * 
+     * @return The height
+     */
+    VariableAmount getHeight();
+    
+    /**
+     * Sets the height that this lake will be spawned at.
+     * 
+     * @param height The new height
+     */
+    void setHeight(VariableAmount height);
 
     /**
      * A builder for constructing {@link Lake} populators.
@@ -85,6 +100,14 @@ public interface Lake extends Populator {
          * @return This builder, for chaining
          */
         Builder chance(double p);
+        
+        /**
+         * Sets the height that the lake will be spawned at.
+         * 
+         * @param height The new height
+         * @return This builder, for chaining
+         */
+        Builder height(VariableAmount height);
 
         /**
          * Resets this builder to the default values.
