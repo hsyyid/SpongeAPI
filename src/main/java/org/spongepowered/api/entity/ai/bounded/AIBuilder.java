@@ -22,25 +22,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.entity.ai.bound.creature;
+package org.spongepowered.api.entity.ai.bounded;
 
-import org.spongepowered.api.entity.Entity;
+import org.spongepowered.api.entity.living.Agent;
 
-import java.util.function.Predicate;
+public interface AIBuilder<A extends Agent, B extends BoundedAITask<A>> {
 
-public interface AvoidEntityAITask extends CreatureAITask {
+    /**
+     * Resets the builder to defaults
+     * @return This builder, reset
+     */
+    AIBuilder<A, B> reset();
 
-    AvoidEntityAITask setTargetSelector(Predicate<Entity> predicate);
-
-    float getSearchDistance();
-
-    AvoidEntityAITask setSearchDistance(float distance);
-
-    double getCloseRangeSpeed();
-
-    AvoidEntityAITask setCloseRangeSpeed(double speed);
-
-    double getFarRangeSpeed();
-
-    AvoidEntityAITask setFarRangeSpeed(double speed);
+    /**
+     * Builds the {@link BoundedAITask <A>} and returns it.
+     *
+     * @param owner The owner of this task
+     * @return The built task
+     */
+    B build(A owner);
 }

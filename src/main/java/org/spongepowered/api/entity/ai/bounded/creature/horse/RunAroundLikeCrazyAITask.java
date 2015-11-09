@@ -22,15 +22,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.entity.ai.bound.creature;
+package org.spongepowered.api.entity.ai.bounded.creature.horse;
 
-public interface WanderAITask extends CreatureAITask {
+import org.spongepowered.api.entity.ai.bounded.creature.CreatureAITask;
+import org.spongepowered.api.entity.living.animal.Horse;
+
+public interface RunAroundLikeCrazyAITask extends CreatureAITask {
+    @Override
+    Horse getOwner();
 
     double getSpeed();
 
-    WanderAITask setSpeed(double speed);
-
-    int getExecutionChance();
-
-    WanderAITask setExecutionChance(int executionChance);
+    RunAroundLikeCrazyAITask setSpeed(double speed);
 }

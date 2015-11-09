@@ -22,10 +22,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.entity.ai.bound;
+package org.spongepowered.api.entity.ai.bounded;
 
-import org.spongepowered.api.entity.ai.bound.creature.WanderAIBuilder;
+import org.spongepowered.api.entity.ai.AITask;
+import org.spongepowered.api.entity.living.Agent;
 
-public interface AIFactory {
-    WanderAIBuilder createWanderAI();
+/**
+ * An {@link AITask} where the owner is always known.
+ *
+ * @param <T> The owner type
+ */
+public interface BoundedAITask<T extends Agent> extends AITask {
+    T getOwner();
 }

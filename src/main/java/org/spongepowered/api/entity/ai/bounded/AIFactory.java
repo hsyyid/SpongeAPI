@@ -22,11 +22,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.entity.ai.bound.creature;
+package org.spongepowered.api.entity.ai.bounded;
 
-import org.spongepowered.api.entity.ai.bound.BoundAITask;
-import org.spongepowered.api.entity.living.Creature;
+import org.spongepowered.api.entity.ai.bounded.creature.WanderAIBuilder;
 
-public interface CreatureAITask extends BoundAITask<Creature> {
-
+public interface AIFactory {
+    WanderAIBuilder createWanderAI();
 }

@@ -22,16 +22,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.entity.ai.bound;
+package org.spongepowered.api.entity.ai.bounded.creature;
 
-import org.spongepowered.api.entity.ai.AITask;
-import org.spongepowered.api.entity.living.Agent;
+import org.spongepowered.api.entity.Entity;
 
-/**
- * An {@link AITask} where the owner is always known.
- *
- * @param <T> The owner type
- */
-public interface BoundAITask<T extends Agent> extends AITask {
-    T getOwner();
+import java.util.function.Predicate;
+
+public interface AvoidEntityAITask extends CreatureAITask {
+
+    AvoidEntityAITask setTargetSelector(Predicate<Entity> predicate);
+
+    float getSearchDistance();
+
+    AvoidEntityAITask setSearchDistance(float distance);
+
+    double getCloseRangeSpeed();
+
+    AvoidEntityAITask setCloseRangeSpeed(double speed);
+
+    double getFarRangeSpeed();
+
+    AvoidEntityAITask setFarRangeSpeed(double speed);
 }

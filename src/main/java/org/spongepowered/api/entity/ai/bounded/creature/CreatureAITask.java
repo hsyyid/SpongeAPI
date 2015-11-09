@@ -22,23 +22,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.spongepowered.api.entity.ai.bound;
+package org.spongepowered.api.entity.ai.bounded.creature;
 
-import org.spongepowered.api.entity.living.Agent;
+import org.spongepowered.api.entity.ai.bounded.BoundedAITask;
+import org.spongepowered.api.entity.living.Creature;
 
-public interface AIBuilder<A extends Agent, B extends BoundAITask<A>> {
+public interface CreatureAITask extends BoundedAITask<Creature> {
 
-    /**
-     * Resets the builder to defaults
-     * @return This builder, reset
-     */
-    AIBuilder<A, B> reset();
-
-    /**
-     * Builds the {@link BoundAITask<A>} and returns it.
-     *
-     * @param owner The owner of this task
-     * @return The built task
-     */
-    B build(A owner);
 }
