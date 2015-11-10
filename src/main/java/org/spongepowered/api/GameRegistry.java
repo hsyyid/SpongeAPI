@@ -150,14 +150,6 @@ public interface GameRegistry {
     ParticleEffectBuilder createParticleEffectBuilder(ParticleType particle);
 
     /**
-     * Gets all available villager {@link Career}s for the given profession.
-     *
-     * @param profession The villager profession to collection careers from
-     * @return A collection of all villager careers associated with the profession
-     */
-    Collection<Career> getCareers(Profession profession);
-
-    /**
      * Gets a {@link Collection} of the default GameRules.
      *
      * @return The default GameRules.

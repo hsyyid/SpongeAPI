@@ -28,11 +28,20 @@ import org.spongepowered.api.CatalogType;
 import org.spongepowered.api.text.translation.Translatable;
 import org.spongepowered.api.util.annotation.CatalogedBy;
 
+import java.util.List;
+
 /**
  * Represents a Villager Profession. A profession defines the genre of
  * trade offers a villager may offer to a player.
  */
 @CatalogedBy(Professions.class)
 public interface Profession extends CatalogType, Translatable {
+
+    /**
+     * Gets the list of available {@link Career}s.
+     *
+     * @return The list of available careers
+     */
+    List<Career> getCareers();
 
 }
